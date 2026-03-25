@@ -17,6 +17,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   title: {
     default: `${SITE_NAME} — Your Guide to the Best Things to Do in London`,
     template: `%s | ${SITE_NAME}`,

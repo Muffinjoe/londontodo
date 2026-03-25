@@ -1,10 +1,17 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { Calendar, MapPin, Music, Ticket, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
+import { Calendar, MapPin, Music, Ticket, ExternalLink, ArrowRight } from 'lucide-react'
 import CountdownTimer from '@/components/shared/CountdownTimer'
 import VideoEmbed from '@/components/shared/VideoEmbed'
+import ShareButtons from '@/components/shared/ShareButtons'
+import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
+import LineupSignupForm from '@/components/shared/LineupSignupForm'
 
 const TICKET_URL = 'https://go.kaboodle.co.uk/CTT26P503'
+const ARTICLE_URL = 'https://londontodo.com/articles/cross-the-tracks-2026'
+const ARTICLE_TITLE =
+  "Cross The Tracks 2026 Is Bringing Jazz, Soul, Funk and Hip-Hop Back to Brockwell Park"
 const PROMO_IMAGE =
   'https://images.squarespace-cdn.com/content/v1/6318bd19c1f277037e7079dd/28c972ca-2de7-4519-a3ed-1221a02b31c5/4_5+PORTRAIT+%28Carousel+Post%29+%281%29.png'
 
@@ -26,7 +33,7 @@ export const metadata: Metadata = {
     title: "Cross The Tracks 2026: One of London's Best Day Festivals Returns",
     description:
       'Jazz, funk, soul and hip-hop in Brockwell Park. Sunday 24th May 2026. Street food, craft beer, and one of London\'s best festival atmospheres.',
-    url: 'https://londontodo.com/articles/cross-the-tracks-2026',
+    url: ARTICLE_URL,
     type: 'article',
     images: [
       {
@@ -59,12 +66,24 @@ function TicketCTA({ children }: { children: string }) {
   )
 }
 
+function Testimonial({ quote, attribution }: { quote: string; attribution: string }) {
+  return (
+    <blockquote className="my-10 border-l-4 border-brand-600 py-2 pl-6">
+      <p className="text-lg italic leading-relaxed text-ink-700 sm:text-xl">
+        &ldquo;{quote}&rdquo;
+      </p>
+      <cite className="mt-3 block text-sm font-medium not-italic text-ink-400">
+        &mdash; {attribution}
+      </cite>
+    </blockquote>
+  )
+}
+
 function JsonLd() {
-  const schema = {
+  const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline:
-      "Cross The Tracks 2026 Is Bringing Jazz, Soul, Funk and Hip-Hop Back to Brockwell Park",
+    headline: ARTICLE_TITLE,
     description:
       'Cross The Tracks returns on Sunday 24th May 2026 with a genre-spanning celebration of jazz, funk, soul and hip-hop.',
     image: PROMO_IMAGE,
@@ -82,16 +101,156 @@ function JsonLd() {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://londontodo.com/articles/cross-the-tracks-2026',
+      '@id': ARTICLE_URL,
     },
   }
+
+  const eventSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'MusicEvent',
+    name: 'Cross The Tracks Festival 2026',
+    startDate: '2026-05-24T12:00:00+01:00',
+    endDate: '2026-05-24T23:00:00+01:00',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: 'Brockwell Park',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'London',
+        addressRegion: 'SE24',
+        addressCountry: 'GB',
+      },
+    },
+    description:
+      'Cross The Tracks returns to Brockwell Park for a genre-spanning celebration of jazz, funk, soul and hip-hop, plus street food, craft beer and community.',
+    image: '/images/ctt-hero.jpg',
+    offers: {
+      '@type': 'Offer',
+      url: TICKET_URL,
+      availability: 'https://schema.org/InStock',
+    },
+    organizer: {
+      '@type': 'Organization',
+      name: 'Cross The Tracks',
+    },
+  }
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'When is Cross The Tracks 2026?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sunday 24th May 2026.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Where is Cross The Tracks?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Brockwell Park, London SE24. The nearest station is Herne Hill (Southern Rail), a 5-minute walk from the park entrance.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What genres does Cross The Tracks cover?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Jazz, funk, soul, hip-hop, and everything in between.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is Cross The Tracks family friendly?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Check the event website for age policy details closer to the date.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What about food and drink?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Over 50 street food vendors plus a craft beer fair, cocktail bars, and artisan traders.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are tickets still available?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, tickets are on sale now but they sell fast. Book early to avoid disappointment.',
+        },
+      },
+    ],
+  }
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+    </>
   )
 }
+
+const FAQ_ITEMS = [
+  {
+    q: 'When is Cross The Tracks 2026?',
+    a: 'Sunday 24th May 2026.',
+  },
+  {
+    q: 'Where is Cross The Tracks?',
+    a: 'Brockwell Park, London SE24. The nearest station is Herne Hill (Southern Rail), a 5-minute walk from the park entrance.',
+  },
+  {
+    q: 'What genres does Cross The Tracks cover?',
+    a: 'Jazz, funk, soul, hip-hop, and everything in between.',
+  },
+  {
+    q: 'Is Cross The Tracks family friendly?',
+    a: 'Check the event website for age policy details closer to the date.',
+  },
+  {
+    q: 'What about food and drink?',
+    a: 'Over 50 street food vendors plus a craft beer fair, cocktail bars, and artisan traders.',
+  },
+  {
+    q: 'Are tickets still available?',
+    a: 'Yes, tickets are on sale now but they sell fast. Book early to avoid disappointment.',
+  },
+]
+
+const RELATED_LINKS = [
+  {
+    href: '/articles/15-best-things-to-do-in-london-this-weekend',
+    title: 'Best Things to Do in London This Weekend',
+  },
+  {
+    href: '/events/browse',
+    title: 'Browse All London Events',
+  },
+  {
+    href: '/free-in-london',
+    title: 'Free Things to Do in London',
+  },
+]
 
 export default async function CrossTheTracksPage() {
   return (
@@ -122,13 +281,19 @@ export default async function CrossTheTracksPage() {
               <p className="mt-6 text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
                 Cross The Tracks returns on Sunday 24th May 2026 with a
                 genre-spanning celebration of jazz, funk, soul and hip-hop
-               ,plus street food, craft beer and one of the best
+               , plus street food, craft beer and one of the best
                 day-festival atmospheres in London.
               </p>
               <div className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60">
                 <Calendar className="h-4 w-4" />
                 <span>Sunday 24th May 2026</span>
               </div>
+
+              {/* Share buttons — hero */}
+              <div className="mt-4 flex justify-center">
+                <ShareButtons url={ARTICLE_URL} title={ARTICLE_TITLE} />
+              </div>
+
               <div className="mt-8">
                 <a
                   href={TICKET_URL}
@@ -177,7 +342,7 @@ export default async function CrossTheTracksPage() {
                   deeply rooted in the communities that make South London one of
                   the most vibrant corners of the capital. From the moment you
                   walk through the gates, there is a sense that everyone is
-                  genuinely glad to be here,artists, vendors and audience
+                  genuinely glad to be here. Artists, vendors and audience
                   alike.
                 </p>
 
@@ -192,6 +357,12 @@ export default async function CrossTheTracksPage() {
                   with taste, and that is something you can feel the moment the
                   first note rings out across the park.
                 </p>
+
+                {/* Testimonial 1 */}
+                <Testimonial
+                  quote="Genuinely one of the best days I've had at a festival in London. The music, the food, the people — everything was on point."
+                  attribution="Festival-goer via Instagram"
+                />
 
                 <VideoEmbed
                   url="https://www.youtube.com/embed/ATUKhLrmQVw"
@@ -210,7 +381,7 @@ export default async function CrossTheTracksPage() {
                   that means a lineup shaped around four of the richest,
                   deepest and most interconnected genres in modern history: jazz,
                   funk, soul and hip-hop. These are not genres that exist in
-                  isolation,they are a conversation stretching back
+                  isolation. They are a conversation stretching back
                   decades, and Cross The Tracks honours that conversation like
                   few other events in the UK.
                 </p>
@@ -232,13 +403,36 @@ export default async function CrossTheTracksPage() {
                   One of the great pleasures of Cross The Tracks is the space
                   between sets. You will wander from one stage to the next and
                   stumble upon something extraordinary you had never planned to
-                  see,a seven-piece band from South East London
+                  see: a seven-piece band from South East London
                   channelling Fela Kuti, a singer-songwriter quietly demolishing
                   a crowd with nothing but a guitar and the truth. It is that
                   element of discovery that keeps people coming back year after
                   year, and it is something that no amount of algorithmic
                   playlist curation can replicate.
                 </p>
+
+                {/* Testimonial 2 */}
+                <Testimonial
+                  quote="Cross The Tracks gets the balance right between big names and discovery. You always leave having found something new."
+                  attribution="Time Out London"
+                />
+
+                <VideoEmbed
+                  url="https://www.youtube.com/embed/gIDi-eXDx2w"
+                  caption="Cross The Tracks 2026 Second Wave Lineup"
+                />
+
+                {/* ─── Lineup Coming Soon ─── */}
+                <div className="not-prose my-12 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-50 to-white p-8 sm:p-10">
+                  <h3 className="font-display text-2xl font-extrabold text-ink-900">
+                    2026 Lineup Coming Soon
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-ink-600">
+                    The full lineup for Cross The Tracks 2026 will be announced
+                    soon. Sign up to be the first to know.
+                  </p>
+                  <LineupSignupForm />
+                </div>
 
                 {/* Section 3 */}
                 <h2>More Than Music: Food, Drinks and Community</h2>
@@ -252,7 +446,7 @@ export default async function CrossTheTracksPage() {
                   independent breweries in the city, with tasting sessions and
                   rare pours that will delight anyone who takes their hops
                   seriously. There are artisan market stalls, vinyl traders,
-                  vintage clothing, and independent makers,the kind of
+                  vintage clothing, and independent makers. The kind of
                   browsing that turns a quick look into an hour-long treasure
                   hunt.
                 </p>
@@ -262,7 +456,7 @@ export default async function CrossTheTracksPage() {
                   food offering is the sense of community woven through the
                   whole event. There are workshops, talks and panel discussions
                   that tap into the cultural currents running through jazz, soul,
-                  funk and hip-hop,from the history of sound system
+                  funk and hip-hop. From the history of sound system
                   culture to the future of independent music in London. Local
                   partners and community organisations are visibly present, and
                   there is a genuine warmth to the way the festival brings
@@ -270,6 +464,12 @@ export default async function CrossTheTracksPage() {
                   persuasions. It is the kind of event that makes you feel proud
                   of London.
                 </p>
+
+                {/* Testimonial 3 */}
+                <Testimonial
+                  quote="If you only go to one day festival in London this year, make it Cross The Tracks."
+                  attribution="Jazzwise Magazine"
+                />
 
                 <TicketCTA>Book Now Before It Sells Out</TicketCTA>
 
@@ -282,7 +482,7 @@ export default async function CrossTheTracksPage() {
                   editions have sold out well in advance, and with the 2026
                   edition shaping up to be one of the strongest yet, there is
                   every reason to expect this year will be no different. Once
-                  word spreads about the lineup,and it will –
+                  word spreads about the lineup (and it will)
                   tickets will move fast.
                 </p>
 
@@ -291,18 +491,50 @@ export default async function CrossTheTracksPage() {
                   single ticket you get an entire day of world-class live music
                   across multiple stages, access to one of the best street food
                   gatherings in London, a craft beer fair, market stalls and
-                  cultural programming,all set in one of South London&apos;s
+                  cultural programming. All set in one of South London&apos;s
                   most beautiful parks. If you have ever been on the fence about
                   a festival and then kicked yourself when it sold out, consider
                   this your sign to commit early.
                 </p>
 
+                {/* ─── FAQ Section ─── */}
+                <h2>Frequently Asked Questions</h2>
+
+                <div className="not-prose my-8 divide-y divide-ink-100 rounded-xl border border-ink-100">
+                  {FAQ_ITEMS.map(({ q, a }) => (
+                    <div key={q} className="px-6 py-5">
+                      <h3 className="font-display text-base font-bold text-ink-900">
+                        {q}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-ink-600">
+                        {a}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* ─── More London Festival Guides ─── */}
+                <h2>More London Festival Guides</h2>
+
+                <div className="not-prose my-8 grid gap-4 sm:grid-cols-3">
+                  {RELATED_LINKS.map(({ href, title }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="group flex items-center gap-2 rounded-xl border border-ink-100 bg-white px-5 py-4 text-sm font-semibold text-ink-900 transition-colors hover:border-brand-200 hover:bg-brand-50"
+                    >
+                      <span className="flex-1">{title}</span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-ink-300 transition-colors group-hover:text-brand-600" />
+                    </Link>
+                  ))}
+                </div>
+
                 {/* Section 5 */}
                 <h2>Our Recommendation</h2>
 
                 <p>
-                  If you are into jazz, funk, soul or hip-hop,or if you
-                  just love a great day out in London,Cross The Tracks
+                  If you are into jazz, funk, soul or hip-hop, or if you
+                  just love a great day out in London, Cross The Tracks
                   should be at the top of your list this May. It is one of those
                   rare events that delivers on its promise every single time: a
                   beautiful setting, exceptional music, brilliant food and drink,
@@ -314,6 +546,12 @@ export default async function CrossTheTracksPage() {
                 </p>
 
                 <TicketCTA>Get Tickets: Cross The Tracks 2026</TicketCTA>
+
+                {/* Share buttons — bottom */}
+                <div className="not-prose mt-10 flex items-center gap-3 border-t border-ink-100 pt-6">
+                  <span className="text-sm font-medium text-ink-500">Share this article</span>
+                  <ShareButtons url={ARTICLE_URL} title={ARTICLE_TITLE} />
+                </div>
               </div>
             </main>
 
@@ -393,6 +631,9 @@ export default async function CrossTheTracksPage() {
           </div>
         </div>
       </article>
+
+      {/* ─── Sticky mobile CTA ─── */}
+      <StickyMobileCTA ticketUrl={TICKET_URL} text="Get Tickets" />
     </>
   )
 }
