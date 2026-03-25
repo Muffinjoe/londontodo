@@ -24,6 +24,10 @@ interface SerpEvent {
 function categorize(title: string, desc: string): string {
   const t = (title + ' ' + desc).toLowerCase()
   if (t.includes('food') || t.includes('restaurant') || t.includes('dining') || t.includes('brunch') || t.includes('supper') || t.includes('tasting') || t.includes('market') && t.includes('food')) return 'food-drink'
+  if (t.includes('concert') || t.includes('live music') || t.includes('gig') || t.includes('band')) return 'culture'
+  if (t.includes('dance') || t.includes('ballet')) return 'culture'
+  if (t.includes('workshop') || t.includes('class') || t.includes('course')) return 'culture'
+  if (t.includes('pub') || t.includes('beer') || t.includes('ale') || t.includes('brewery')) return 'food-drink'
   if (t.includes('comedy') || t.includes('club') || t.includes('dj') || t.includes('nightclub') || t.includes('party') || t.includes('late night')) return 'nightlife'
   if (t.includes('kids') || t.includes('family') || t.includes('children') || t.includes('half term')) return 'family'
   if (t.includes('market') || t.includes('fair') || t.includes('flea') || t.includes('vintage')) return 'markets'
@@ -116,17 +120,21 @@ async function main() {
   console.log('🔍 Fetching London events from Google Events via SerpAPI...\n')
 
   // Fetch different queries to get variety
+  // Original queries (already fetched, skipping):
+  // 'Events in London', 'Events in London this weekend', 'Free events in London',
+  // 'Exhibitions in London', 'London food events', 'London theatre shows',
+  // 'London comedy shows', 'Family events London', 'London markets this week',
+  // 'New openings London'
+
   const queries = [
-    { q: 'Events in London', chips: undefined },
-    { q: 'Events in London this weekend', chips: 'date:weekend' },
-    { q: 'Free events in London', chips: undefined },
-    { q: 'Exhibitions in London', chips: undefined },
-    { q: 'London food events', chips: undefined },
-    { q: 'London theatre shows', chips: undefined },
-    { q: 'London comedy shows', chips: undefined },
-    { q: 'Family events London', chips: undefined },
-    { q: 'London markets this week', chips: undefined },
-    { q: 'New openings London', chips: undefined },
+    { q: 'London concerts this week', chips: undefined },
+    { q: 'London art exhibitions 2026', chips: undefined },
+    { q: 'London west end shows', chips: undefined },
+    { q: 'London outdoor events spring', chips: undefined },
+    { q: 'London pub events', chips: undefined },
+    { q: 'London dance shows', chips: undefined },
+    { q: 'London live music this week', chips: undefined },
+    { q: 'London workshops this week', chips: undefined },
   ]
 
   const allEvents: SerpEvent[] = []

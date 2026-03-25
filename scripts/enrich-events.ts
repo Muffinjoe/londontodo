@@ -43,11 +43,11 @@ async function main() {
   console.log(`  Fixed ${imgFixed} broken images\n`)
 
   // Enrich short descriptions with Groq
-  const shortEvents = events.filter(e => !e.shortSummary || e.description.length < 100)
-  console.log(`✍️  Enriching ${Math.min(shortEvents.length, 20)} events with editorial descriptions...\n`)
+  const shortEvents = events.filter(e => !e.shortSummary || e.description.length < 200)
+  console.log(`✍️  Enriching ${Math.min(shortEvents.length, 40)} events with editorial descriptions...\n`)
 
   let enriched = 0
-  for (const event of shortEvents.slice(0, 20)) {
+  for (const event of shortEvents.slice(0, 40)) {
     try {
       const completion = await groq.chat.completions.create({
         model: 'compound-beta',
