@@ -203,7 +203,7 @@ export const areas: SeedArea[] = [
   { name: 'Kew', slug: 'kew', heroImage: 'https://images.unsplash.com/photo-1585938389612-a552a28d6914?w=1200&h=600&fit=crop', description: 'A leafy corner of southwest London, home to the world-famous Royal Botanic Gardens. Village charm, riverside walks, and botanical beauty.' },
   { name: 'Shoreditch', slug: 'shoreditch', heroImage: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&h=600&fit=crop', description: 'East London\'s creative heartland. Street art, independent coffee shops, rooftop bars, and some of the city\'s best galleries.' },
   { name: 'Soho', slug: 'soho', heroImage: 'https://images.unsplash.com/photo-1542435503-956c469947f6?w=1200&h=600&fit=crop', description: 'The beating heart of London\'s West End. World-class dining, legendary bars, independent cinemas, and nightlife in every direction.' },
-  { name: 'Camden', slug: 'camden', heroImage: 'https://images.unsplash.com/photo-1569587112025-0d460e81a126?w=1200&h=600&fit=crop', description: 'Loud, proud, and unapologetically alternative. Camden\'s famous market, live music venues, and canal-side pubs make it unmissable.' },
+  { name: 'Camden', slug: 'camden', heroImage: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200&h=600&fit=crop', description: 'Loud, proud, and unapologetically alternative. Camden\'s famous market, live music venues, and canal-side pubs make it unmissable.' },
   { name: 'Covent Garden', slug: 'covent-garden', heroImage: 'https://images.unsplash.com/photo-1516637090014-cb1ab78511f5?w=1200&h=600&fit=crop', description: 'London\'s theatrical heart. Street performers, boutique shopping, world-class restaurants, and the Royal Opera House.' },
 ]
 
@@ -591,7 +591,7 @@ export const homepageArticles: SeedArticle[] = [
     subtitle: 'Forget the V&A queue — these lesser-known museums are brilliant.',
     excerpt: 'Forget the V&A queue. These lesser-known museums are some of the best in the city.',
     body: '',
-    featureImage: unsplash('1524492412937-b28074a5d7da'),
+    featureImage: unsplash('1494522855154-9297ac14b55f'),
     category: hpCats.culture,
     tags: ['museums', 'culture', 'hidden gems'],
     author: authors[2],
@@ -640,7 +640,7 @@ export const homepageEvents: SeedEvent[] = [
     title: 'Camden Market Street Food Festival',
     venue: { name: 'Camden Market', slug: 'camden-market' },
     area: { name: 'Camden', slug: 'camden' },
-    featureImage: unsplash('1569587112025-0d460e81a126'),
+    featureImage: unsplash('1514933651103-005eec06c04b'),
     category: hpCats.foodDrink,
     startDate: '2026-03-28T11:00:00Z',
     endDate: '2026-03-29T18:00:00Z',
@@ -695,9 +695,9 @@ export const homepageEvents: SeedEvent[] = [
 export const homepageAreas: SeedArea[] = [
   { name: 'Shoreditch',   slug: 'shoreditch',    heroImage: unsplash('1534430480872-3498386e7856'), description: 'Street art, vintage shops, and some of London\'s best coffee.' },
   { name: 'Soho',         slug: 'soho',          heroImage: unsplash('1542435503-956c469947f6'), description: 'Theatreland, legendary bars, and the best restaurants in the West End.' },
-  { name: 'Camden',       slug: 'camden',        heroImage: unsplash('1569587112025-0d460e81a126'), description: 'Markets, live music, and an alternative spirit that never fades.' },
+  { name: 'Camden',       slug: 'camden',        heroImage: unsplash('1514933651103-005eec06c04b'), description: 'Markets, live music, and an alternative spirit that never fades.' },
   { name: 'Peckham',      slug: 'peckham',       heroImage: unsplash('1517248135467-4c7edcad34c4'), description: 'South London\'s creative hub with rooftop bars and galleries.' },
-  { name: 'Brixton',      slug: 'brixton',       heroImage: unsplash('1524492412937-b28074a5d7da'), description: 'Vibrant culture, incredible food, and a legendary music scene.' },
+  { name: 'Brixton',      slug: 'brixton',       heroImage: unsplash('1494522855154-9297ac14b55f'), description: 'Vibrant culture, incredible food, and a legendary music scene.' },
   { name: 'Greenwich',    slug: 'greenwich',     heroImage: unsplash('1501594907352-04cda38ebc29'), description: 'Maritime history, parkland views, and a brilliant weekend market.' },
   { name: 'Notting Hill',  slug: 'notting-hill',  heroImage: unsplash('1516637090014-cb1ab78511f5'), description: 'Pastel houses, Portobello Road, and neighbourhood charm.' },
   { name: 'South Bank',   slug: 'south-bank',    heroImage: unsplash('1533460004989-cef01064af7e'), description: 'Riverside walks, world-class galleries, and street performers.' },
