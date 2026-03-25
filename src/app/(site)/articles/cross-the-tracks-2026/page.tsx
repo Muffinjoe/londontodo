@@ -69,7 +69,7 @@ function Testimonial({ quote, attribution, href }: { quote: string; attribution:
   return (
     <blockquote className="my-10 border-l-4 border-brand-600 py-2 pl-6">
       <p className="text-lg italic leading-relaxed text-ink-700 sm:text-xl">
-        &ldquo;{quote}&rdquo;
+        {quote}
       </p>
       <cite className="mt-3 block text-sm font-medium not-italic text-ink-400">
         &mdash;{' '}
