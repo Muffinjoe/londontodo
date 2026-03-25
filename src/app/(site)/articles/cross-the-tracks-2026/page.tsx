@@ -158,12 +158,12 @@ export default async function CrossTheTracksPage() {
                 {/* Section 1 */}
                 <h2>Why Cross The Tracks Is One of London&apos;s Best Day Festivals</h2>
 
-                <p>
+                <p className="font-bold">
                   There are plenty of festivals in London. Huge ones with
                   headline slots auctioned off to the highest bidder, corporate
                   ones that feel more like branded experiences than music events,
                   and pocket-sized ones that never quite get the attention they
-                  deserve. And then there is Cross The Tracks,a festival
+                  deserve. And then there is Cross The Tracks, a festival
                   that has quietly, confidently carved out its own lane as one of
                   the most genuinely enjoyable days out in the city&apos;s cultural
                   calendar.
