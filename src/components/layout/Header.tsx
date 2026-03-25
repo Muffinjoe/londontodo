@@ -6,13 +6,13 @@ import { Menu, X, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navigation = [
-  { name: "What's On", href: '/whats-on' },
+  { name: "What's On", href: '/events/browse' },
   { name: 'This Weekend', href: '/this-weekend' },
-  { name: 'Areas', href: '/areas' },
-  { name: 'Food & Drink', href: '/food-drink' },
-  { name: 'Culture', href: '/culture' },
-  { name: 'Free', href: '/free' },
+  { name: 'Food & Drink', href: '/categories/food-drink' },
+  { name: 'Culture', href: '/categories/culture' },
+  { name: 'Free', href: '/free-in-london' },
   { name: 'New in London', href: '/new-in-london' },
+  { name: 'Search', href: '/search' },
 ]
 
 export default function Header() {
