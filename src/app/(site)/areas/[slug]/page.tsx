@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import Breadcrumbs from '@/components/shared/Breadcrumbs'
 import ArticleCard from '@/components/cards/ArticleCard'
 import EventCard from '@/components/cards/EventCard'
-import { areas, getAreaBySlug, getArticlesByArea, getEventsByArea } from '@/lib/seed-data'
+import { areas, homepageAreas, getAreaBySlug, getArticlesByArea, getEventsByArea } from '@/lib/seed-data'
 import { SITE_NAME } from '@/lib/utils'
 
 interface PageProps {
@@ -28,7 +28,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export function generateStaticParams() {
-  return areas.map((area) => ({ slug: area.slug }))
+  const allAreas = [...homepageAreas, ...areas]
+  const seen = new Set<string>()
+  return allAreas.filter(a => { if (seen.has(a.slug)) return false; seen.add(a.slug); return true }).map((area) => ({ slug: area.slug }))
 }
 
 export default function AreaPage({ params }: PageProps) {
@@ -37,7 +39,10 @@ export default function AreaPage({ params }: PageProps) {
 
   const areaArticles = getArticlesByArea(area.slug, 6)
   const areaEvents = getEventsByArea(area.slug, 6)
-  const nearbyAreas = areas.filter((a) => a.slug !== area.slug).slice(0, 4)
+  const allAreas = [...homepageAreas, ...areas]
+  const seen = new Set<string>()
+  const dedupedAreas = allAreas.filter(a => { if (seen.has(a.slug)) return false; seen.add(a.slug); return true })
+  const nearbyAreas = dedupedAreas.filter((a) => a.slug !== area.slug).slice(0, 4)
 
   return (
     <div className="bg-white">

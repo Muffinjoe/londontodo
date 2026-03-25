@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import Breadcrumbs from '@/components/shared/Breadcrumbs'
 import EventCard from '@/components/cards/EventCard'
-import { events, getEventBySlug } from '@/lib/seed-data'
+import { events, homepageEvents, getEventBySlug } from '@/lib/seed-data'
 import { formatEventDate, formatPrice, SITE_NAME, SITE_URL } from '@/lib/utils'
 import { Calendar, Clock, MapPin, Tag, Ticket, Users, ExternalLink } from 'lucide-react'
 
@@ -29,22 +29,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export function generateStaticParams() {
-  return events.map((event) => ({ slug: event.slug }))
+  const allEvts = [...homepageEvents, ...events]
+  const seen = new Set<string>()
+  return allEvts.filter(e => { if (seen.has(e.slug)) return false; seen.add(e.slug); return true }).map((event) => ({ slug: event.slug }))
 }
 
 export default function EventPage({ params }: PageProps) {
   const event = getEventBySlug(params.slug)
   if (!event) notFound()
 
-  const relatedByVenue = events
+  const allEvts = [...homepageEvents, ...events]
+
+  const relatedByVenue = allEvts
     .filter((e) => e.venue.slug === event.venue.slug && e.slug !== event.slug)
     .slice(0, 4)
 
-  const relatedByArea = events
+  const relatedByArea = allEvts
     .filter((e) => e.area.slug === event.area.slug && e.slug !== event.slug)
     .slice(0, 4)
 
-  const relatedEvents = events
+  const relatedEvents = allEvts
     .filter((e) => e.category.slug === event.category.slug && e.slug !== event.slug)
     .slice(0, 4)
 

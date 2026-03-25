@@ -358,30 +358,67 @@ export const promos: SeedPromo[] = [
   },
 ]
 
-// ─── Helpers ─────────────────────────────────────────────────────────
+// ─── Unified lookups (merge both data sources) ─────────────────────
+
+function allArticles(): SeedArticle[] {
+  const slugs = new Set<string>()
+  const result: SeedArticle[] = []
+  // Homepage articles take priority (they have Unsplash images)
+  for (const a of [...homepageArticles, ...articles]) {
+    if (!slugs.has(a.slug)) {
+      slugs.add(a.slug)
+      result.push(a)
+    }
+  }
+  return result
+}
+
+function allEvents(): SeedEvent[] {
+  const slugs = new Set<string>()
+  const result: SeedEvent[] = []
+  for (const e of [...homepageEvents, ...events]) {
+    if (!slugs.has(e.slug)) {
+      slugs.add(e.slug)
+      result.push(e)
+    }
+  }
+  return result
+}
+
+function allAreas(): SeedArea[] {
+  const slugs = new Set<string>()
+  const result: SeedArea[] = []
+  for (const a of [...homepageAreas, ...areas]) {
+    if (!slugs.has(a.slug)) {
+      slugs.add(a.slug)
+      result.push(a)
+    }
+  }
+  return result
+}
 
 export function getArticleBySlug(slug: string): SeedArticle | undefined {
-  return articles.find((a) => a.slug === slug)
+  return allArticles().find((a) => a.slug === slug)
 }
 
 export function getRelatedArticles(currentSlug: string, limit = 4): SeedArticle[] {
-  return articles.filter((a) => a.slug !== currentSlug).slice(0, limit)
+  return allArticles().filter((a) => a.slug !== currentSlug).slice(0, limit)
 }
 
 export function getTrendingArticles(limit = 5): SeedArticle[] {
-  return articles.slice(0, limit)
+  return allArticles().slice(0, limit)
 }
 
 export function getFeaturedEvents(limit = 4): SeedEvent[] {
-  return events.slice(0, limit)
+  return allEvents().slice(0, limit)
 }
 
 export function getEventBySlug(slug: string): SeedEvent | undefined {
-  return events.find((e) => e.slug === slug)
+  return allEvents().find((e) => e.slug === slug)
 }
 
 export function getAreaBySlug(slug: string): SeedArea | undefined {
-  return areas.find((a) => a.slug === slug)
+  return allAreas().find((a) => a.slug === slug)
 }
 
 export function getCategoryBySlug(slug: string): SeedCategory | undefined {
@@ -389,33 +426,31 @@ export function getCategoryBySlug(slug: string): SeedCategory | undefined {
 }
 
 export function getArticlesByArea(areaSlug: string, limit = 6): SeedArticle[] {
-  // Seed articles don't have area field, so return a subset for now
-  return articles.slice(0, limit)
+  return allArticles().slice(0, limit)
 }
 
 export function getEventsByArea(areaSlug: string, limit = 6): SeedEvent[] {
-  return events.filter((e) => e.area.slug === areaSlug).slice(0, limit)
+  return allEvents().filter((e) => e.area.slug === areaSlug).slice(0, limit)
 }
 
 export function getArticlesByCategory(categorySlug: string, limit = 8): SeedArticle[] {
-  return articles.filter((a) => a.category.slug === categorySlug).slice(0, limit)
+  return allArticles().filter((a) => a.category.slug === categorySlug).slice(0, limit)
 }
 
 export function getEventsByCategory(categorySlug: string, limit = 6): SeedEvent[] {
-  return events.filter((e) => e.category.slug === categorySlug).slice(0, limit)
+  return allEvents().filter((e) => e.category.slug === categorySlug).slice(0, limit)
 }
 
 export function getFreeEvents(limit = 8): SeedEvent[] {
-  return events.filter((e) => e.priceType === 'FREE').slice(0, limit)
+  return allEvents().filter((e) => e.priceType === 'FREE').slice(0, limit)
 }
 
 export function getWeekendEvents(limit = 8): SeedEvent[] {
-  // For seed data, return all events as if they're this weekend
-  return events.slice(0, limit)
+  return allEvents().slice(0, limit)
 }
 
 export function getRecentArticles(limit = 6): SeedArticle[] {
-  return [...articles].sort((a, b) =>
+  return [...allArticles()].sort((a, b) =>
     new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   ).slice(0, limit)
 }

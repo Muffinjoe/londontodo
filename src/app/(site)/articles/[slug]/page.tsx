@@ -25,14 +25,16 @@ import { Clock } from 'lucide-react'
 const bodyMap: Record<string, string> = {
   '15-best-things-to-do-in-london-this-weekend': weekendArticleBody,
   'locals-guide-to-shoreditch-right-now': shoreditchArticleBody,
+  'locals-guide-shoreditch': shoreditchArticleBody,
 }
 
 function getArticleWithBody(slug: string) {
   const article = getArticleBySlug(slug)
   if (!article) return undefined
+  const body = bodyMap[slug] || article.body
   return {
     ...article,
-    body: bodyMap[slug] || article.body,
+    body: body || `<p>${article.excerpt}</p><p>Full article coming soon. Check back for the complete guide.</p>`,
   }
 }
 
