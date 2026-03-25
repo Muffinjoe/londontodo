@@ -201,16 +201,28 @@ export default async function EventPage({ params }: PageProps) {
               </div>
             )}
 
-            {/* Map placeholder */}
+            {/* Map */}
             <div className="mt-8">
               <h2 className="font-display text-xl font-extrabold text-ink-900">Getting there</h2>
-              <div className="mt-4 flex aspect-[16/9] items-center justify-center rounded-lg border border-ink-200 bg-ink-50">
-                <div className="text-center text-ink-400">
-                  <MapPin className="mx-auto h-8 w-8" />
-                  <p className="mt-2 text-sm">Map coming soon</p>
-                  <p className="mt-1 text-xs">{venueName}, {areaName}, London</p>
-                </div>
+              <div className="mt-4 overflow-hidden rounded-lg border border-ink-200">
+                <iframe
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(
+                    (event.venue?.address ? event.venue.address + ', ' : '') + venueName + ', London, UK'
+                  )}`}
+                  width="100%"
+                  height="350"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Map showing ${venueName}`}
+                />
               </div>
+              <p className="mt-2 text-sm text-ink-500">
+                {event.venue?.address && <span>{event.venue.address} · </span>}
+                {venueName}, {areaName}, London
+                {event.venue?.postcode && <span> · {event.venue.postcode}</span>}
+              </p>
             </div>
           </div>
 
