@@ -1,8 +1,20 @@
 import ArticleCard from '@/components/cards/ArticleCard'
-import type { SeedArticle } from '@/lib/seed-data'
+
+interface ArticleShape {
+  slug: string
+  title: string
+  excerpt: string
+  featureImage: string
+  category: { name: string; slug: string; color: string }
+  publishedAt: string | Date
+  author: { name: string }
+  featured?: boolean
+  sponsored?: boolean
+  readingTime?: number
+}
 
 interface RelatedArticlesProps {
-  articles: SeedArticle[]
+  articles: ArticleShape[]
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {

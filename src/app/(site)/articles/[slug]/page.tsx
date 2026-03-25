@@ -2,224 +2,141 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  getArticleBySlug,
-  getRelatedArticles,
-  getTrendingArticles,
-  getFeaturedEvents,
-  promos,
-} from '@/lib/seed-data'
-import { weekendArticleBody, shoreditchArticleBody } from '@/lib/seed-article-bodies'
+import { prisma } from '@/lib/prisma'
+import { toArticleCard, toEventCard } from '@/lib/adapters'
 import { cn, formatDate, readingTime, stripHtml, SITE_NAME, SITE_URL } from '@/lib/utils'
 import Breadcrumbs from '@/components/shared/Breadcrumbs'
 import ShareButtons from '@/components/shared/ShareButtons'
-import CategoryChip from '@/components/shared/CategoryChip'
 import ArticleBody from '@/components/articles/ArticleBody'
 import ArticleSidebar from '@/components/articles/ArticleSidebar'
 import RelatedArticles from '@/components/articles/RelatedArticles'
 import AuthorBio from '@/components/articles/AuthorBio'
 import TableOfContents from '@/components/articles/TableOfContents'
+import NewsletterBox from '@/components/shared/NewsletterBox'
 import { Clock } from 'lucide-react'
 
-// Map slug to article body
-const bodyMap: Record<string, string> = {
-  '15-best-things-to-do-in-london-this-weekend': weekendArticleBody,
-  'locals-guide-to-shoreditch-right-now': shoreditchArticleBody,
-  'locals-guide-shoreditch': shoreditchArticleBody,
-}
-
-function getArticleWithBody(slug: string) {
-  const article = getArticleBySlug(slug)
-  if (!article) return undefined
-  const body = bodyMap[slug] || article.body
-  return {
-    ...article,
-    body: body || `<p>${article.excerpt}</p><p>Full article coming soon. Check back for the complete guide.</p>`,
-  }
-}
-
-// Add IDs to h2 headings so ToC links work
-function addHeadingIds(html: string): string {
-  return html.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (_match, attrs, content) => {
-    const text = content.replace(/<[^>]*>/g, '')
-    const decoded = text
-      .replace(/&amp;/g, '&')
-      .replace(/&rsquo;/g, '\u2019')
-      .replace(/&lsquo;/g, '\u2018')
-      .replace(/&pound;/g, '\u00A3')
-      .replace(/&#\d+;/g, (m: string) => String.fromCharCode(parseInt(m.slice(2, -1))))
-    const id = decoded
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-    return `<h2${attrs} id="${id}">${content}</h2>`
-  })
-}
-
-// ─── Metadata ────────────────────────────────────────────────────────
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ slug: string }>
 }
 
+async function getArticle(slug: string) {
+  return prisma.article.findUnique({
+    where: { slug },
+    include: { category: true, area: true, author: true, tags: { include: { tag: true } } },
+  })
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const article = getArticleWithBody(slug)
+  const article = await getArticle(slug)
   if (!article) return { title: 'Article not found' }
 
-  const plainExcerpt = stripHtml(article.excerpt)
-
+  const desc = article.excerpt || stripHtml(article.body).slice(0, 155)
   return {
-    title: article.title,
-    description: plainExcerpt,
-    keywords: article.tags,
-    authors: [{ name: article.author.name }],
+    title: article.metaTitle || article.title,
+    description: article.metaDescription || desc,
     openGraph: {
       type: 'article',
       title: article.title,
-      description: plainExcerpt,
+      description: desc,
       url: `${SITE_URL}/articles/${article.slug}`,
       siteName: SITE_NAME,
-      images: [
-        {
-          url: article.featureImage,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
-      publishedTime: article.publishedAt,
-      modifiedTime: article.updatedAt,
-      authors: [article.author.name],
-      tags: article.tags,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: article.title,
-      description: plainExcerpt,
-      images: [article.featureImage],
+      images: article.featureImage ? [{ url: article.featureImage, width: 1200, height: 630, alt: article.title }] : [],
+      publishedTime: article.publishedAt?.toISOString(),
+      authors: [article.author?.name || SITE_NAME],
     },
   }
 }
 
-// ─── Page ────────────────────────────────────────────────────────────
+function addHeadingIds(html: string): string {
+  return html.replace(/<h2([^>]*)>(.*?)<\/h2>/gi, (_match, attrs, content) => {
+    const text = content.replace(/<[^>]*>/g, '')
+    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim()
+    return `<h2${attrs} id="${id}">${content}</h2>`
+  })
+}
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params
-  const article = getArticleWithBody(slug)
+  const article = await getArticle(slug)
+  if (!article) notFound()
 
-  if (!article) {
-    notFound()
-  }
-
+  const fallbackImg = 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&h=700&fit=crop'
+  const featureImage = article.featureImage || fallbackImg
   const bodyWithIds = addHeadingIds(article.body)
-  const readTime = readingTime(stripHtml(article.body))
+  const readTime = article.readingTime || readingTime(stripHtml(article.body))
   const articleUrl = `${SITE_URL}/articles/${article.slug}`
+  const catName = article.category?.name || 'London'
+  const catSlug = article.category?.slug || 'culture'
+  const catColor = article.category?.color || '#6366f1'
+  const authorName = article.author?.name || 'LondonTodo Editorial'
+  const tags = article.tags?.map(t => t.tag.name) || []
 
-  const relatedArticles = getRelatedArticles(article.slug, 4)
-  const trending = getTrendingArticles(5)
-  const featuredEvents = getFeaturedEvents(4)
+  // Related articles and events
+  const relatedArticles = await prisma.article.findMany({
+    where: { status: 'PUBLISHED', slug: { not: slug } },
+    include: { category: true, area: true, author: true },
+    take: 4,
+    orderBy: { publishedAt: 'desc' },
+  })
 
-  // Schema.org Article JSON-LD
+  const trending = await prisma.article.findMany({
+    where: { status: 'PUBLISHED' },
+    include: { category: true, area: true, author: true },
+    take: 5,
+    orderBy: { publishedAt: 'desc' },
+  })
+
+  const featuredEvents = await prisma.event.findMany({
+    where: { status: 'PUBLISHED', startDate: { gte: new Date() } },
+    include: { category: true, area: true, venue: true },
+    take: 3,
+    orderBy: { startDate: 'asc' },
+  })
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.title,
-    description: stripHtml(article.excerpt),
-    image: `${SITE_URL}${article.featureImage}`,
-    datePublished: article.publishedAt,
-    dateModified: article.updatedAt || article.publishedAt,
-    author: {
-      '@type': 'Person',
-      name: article.author.name,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: SITE_URL,
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': articleUrl,
-    },
-    keywords: article.tags.join(', '),
-    wordCount: stripHtml(article.body).split(/\s+/).length,
+    description: article.excerpt || stripHtml(article.body).slice(0, 155),
+    image: featureImage,
+    datePublished: article.publishedAt?.toISOString(),
+    dateModified: article.updatedAt.toISOString(),
+    author: { '@type': 'Person', name: authorName },
+    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   }
 
   return (
     <article>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
 
-      {/* ── Header ─────────────────────────────────────────── */}
       <header className="container-editorial pb-6 pt-6 sm:pt-8">
-        <Breadcrumbs
-          items={[
-            { label: article.category.name, href: `/${article.category.slug}` },
-            { label: article.title },
-          ]}
-        />
+        <Breadcrumbs items={[{ label: catName, href: `/categories/${catSlug}` }, { label: article.title }]} />
 
-        {/* Category kicker */}
-        <div className="mb-3">
-          <CategoryChip
-            name={article.category.name}
-            slug={article.category.slug}
-            color={article.category.color}
-            size="md"
-          />
+        <div className="mb-3 mt-4">
+          <Link href={`/categories/${catSlug}`} className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white" style={{ backgroundColor: catColor }}>
+            {catName}
+          </Link>
         </div>
 
-        {/* Headline */}
-        <h1 className="max-w-4xl font-display text-3xl font-bold leading-tight text-ink-900 text-balance sm:text-4xl md:text-5xl">
+        <h1 className="max-w-4xl font-display text-3xl font-extrabold leading-tight text-ink-900 sm:text-4xl md:text-5xl">
           {article.title}
         </h1>
 
-        {/* Subtitle / dek */}
         {article.subtitle && (
-          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-ink-500 sm:text-xl">
-            {article.subtitle}
-          </p>
+          <p className="mt-3 max-w-3xl text-lg leading-relaxed text-ink-500 sm:text-xl">{article.subtitle}</p>
         )}
 
-        {/* Author row */}
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <div className="flex items-center gap-3">
-            {article.author.image && (
-              <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                <Image
-                  src={article.author.image}
-                  alt={article.author.name}
-                  fill
-                  className="object-cover"
-                  sizes="40px"
-                />
-              </div>
-            )}
-            <div>
-              <p className="text-sm font-medium text-ink-900">
-                {article.author.name}
-              </p>
-              <div className="flex items-center gap-2 text-xs text-ink-400">
-                <time dateTime={article.publishedAt}>
-                  {formatDate(article.publishedAt)}
-                </time>
-                <span className="h-0.5 w-0.5 rounded-full bg-ink-300" />
-                <span className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {readTime} min read
-                </span>
-                {article.updatedAt && (
-                  <>
-                    <span className="h-0.5 w-0.5 rounded-full bg-ink-300" />
-                    <span>Updated {formatDate(article.updatedAt)}</span>
-                  </>
-                )}
-              </div>
+          <div>
+            <p className="text-sm font-medium text-ink-900">{authorName}</p>
+            <div className="flex items-center gap-2 text-xs text-ink-400">
+              {article.publishedAt && <time dateTime={article.publishedAt.toISOString()}>{formatDate(article.publishedAt)}</time>}
+              <span className="h-0.5 w-0.5 rounded-full bg-ink-300" />
+              <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{readTime} min read</span>
             </div>
           </div>
           <div className="ml-auto">
@@ -228,50 +145,24 @@ export default async function ArticlePage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* ── Feature image ──────────────────────────────────── */}
       <div className="container-editorial">
         <figure className="relative aspect-[2/1] w-full overflow-hidden rounded-lg sm:aspect-[21/9]">
-          <Image
-            src={article.featureImage}
-            alt={article.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            priority
-          />
+          <Image src={featureImage} alt={article.featureImageAlt || article.title} fill className="object-cover" sizes="(max-width: 1280px) 100vw, 1280px" priority />
         </figure>
-        {article.featureImageCaption && (
-          <figcaption className="mt-2 text-center text-xs text-ink-400">
-            {article.featureImageCaption}
-          </figcaption>
-        )}
       </div>
 
-      {/* ── Two-column layout ──────────────────────────────── */}
       <div className="container-editorial mt-8 flex flex-col gap-10 lg:flex-row lg:gap-12">
-        {/* Main column */}
         <div className="min-w-0 flex-1">
-          {/* Table of Contents for long articles */}
           <TableOfContents body={article.body} />
-
-          {/* Article body */}
           <div className="mx-auto max-w-article">
-            <ArticleBody body={bodyWithIds} promos={promos} />
+            <ArticleBody body={bodyWithIds} />
           </div>
 
-          {/* Tags */}
-          {article.tags.length > 0 && (
+          {tags.length > 0 && (
             <div className="mx-auto mt-10 max-w-article border-t border-ink-100 pt-6">
               <div className="flex flex-wrap gap-2">
-                {article.tags.map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/search?tag=${encodeURIComponent(tag)}`}
-                    className={cn(
-                      'inline-block rounded-full bg-ink-50 px-3 py-1 text-sm text-ink-600',
-                      'transition-colors hover:bg-brand-50 hover:text-brand-600',
-                    )}
-                  >
+                {tags.map((tag) => (
+                  <Link key={tag} href={`/search?tag=${encodeURIComponent(tag)}`} className={cn('inline-block rounded-full bg-ink-50 px-3 py-1 text-sm text-ink-600', 'transition-colors hover:bg-brand-50 hover:text-brand-600')}>
                     #{tag}
                   </Link>
                 ))}
@@ -279,23 +170,50 @@ export default async function ArticlePage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Author bio */}
           <div className="mx-auto mt-8 max-w-article">
-            <AuthorBio author={article.author} />
+            <AuthorBio author={{ name: authorName, bio: 'Part of the LondonTodo editorial team, covering the best of London.' }} />
+          </div>
+
+          <div className="mx-auto mt-8 max-w-article">
+            <NewsletterBox variant="inline" />
           </div>
         </div>
 
-        {/* Sidebar */}
-        <ArticleSidebar
-          trending={trending}
-          events={featuredEvents}
-          sponsored={promos}
-        />
+        <aside className="w-full space-y-8 lg:sticky lg:top-28 lg:w-[340px] lg:flex-shrink-0 lg:self-start">
+          {trending.length > 0 && (
+            <div className="rounded-lg border border-ink-100 bg-white p-5">
+              <h3 className="font-display text-base font-semibold text-ink-900">Popular this week</h3>
+              <div className="mt-4 space-y-3">
+                {trending.map((a, i) => (
+                  <Link key={a.slug} href={`/articles/${a.slug}`} className="flex gap-3 group">
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-ink-50 text-xs font-bold text-ink-400">{i + 1}</span>
+                    <span className="text-sm font-medium text-ink-700 group-hover:text-brand-600 transition-colors leading-snug">{a.title}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {featuredEvents.length > 0 && (
+            <div className="rounded-lg border border-ink-100 bg-white p-5">
+              <h3 className="font-display text-base font-semibold text-ink-900">Upcoming events</h3>
+              <div className="mt-4 space-y-3">
+                {featuredEvents.map((e) => (
+                  <Link key={e.slug} href={`/events/${e.slug}`} className="block group">
+                    <p className="text-sm font-medium text-ink-700 group-hover:text-brand-600 transition-colors">{e.title}</p>
+                    <p className="text-xs text-ink-400">{e.venue?.name} · {formatDate(e.startDate)}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <NewsletterBox variant="sidebar" />
+        </aside>
       </div>
 
-      {/* ── Related articles ───────────────────────────────── */}
       <div className="container-editorial mt-12 pb-12">
-        <RelatedArticles articles={relatedArticles} />
+        <RelatedArticles articles={relatedArticles.map(toArticleCard)} />
       </div>
     </article>
   )
