@@ -42,10 +42,10 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
-            <span className="font-display text-2xl sm:text-3xl tracking-tight text-brand-600">
+            <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-600">
               London
             </span>
-            <span className="font-display text-2xl sm:text-3xl tracking-tight text-ink-900">
+            <span className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-ink-900">
               Todo
             </span>
           </Link>
