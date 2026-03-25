@@ -122,7 +122,7 @@ export default async function CrossTheTracksPage() {
               <p className="mt-6 text-base leading-relaxed text-white/80 sm:text-lg md:text-xl">
                 Cross The Tracks returns on Sunday 24th May 2026 with a
                 genre-spanning celebration of jazz, funk, soul and hip-hop
-                &mdash; plus street food, craft beer and one of the best
+               ,plus street food, craft beer and one of the best
                 day-festival atmospheres in London.
               </p>
               <div className="mt-6 flex items-center justify-center gap-2 text-sm text-white/60">
@@ -149,51 +149,11 @@ export default async function CrossTheTracksPage() {
           <CountdownTimer />
         </div>
 
-        {/* ─── Three-column layout ─── */}
+        {/* ─── Two-column layout ─── */}
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-            {/* ─── Left sidebar ─── */}
-            <aside className="order-2 lg:order-1 lg:col-span-3">
-              <div className="lg:sticky lg:top-24">
-                <div className="overflow-hidden rounded-lg">
-                  <Image
-                    src={PROMO_IMAGE}
-                    alt="Cross The Tracks 2026 promo poster"
-                    width={540}
-                    height={675}
-                    className="h-auto w-full rounded-lg"
-                    unoptimized
-                  />
-                </div>
-                <div className="mt-4 rounded-lg border border-ink-100 bg-white p-5">
-                  <h3 className="font-display text-base font-extrabold text-ink-900">
-                    Cross The Tracks 2026
-                  </h3>
-                  <ul className="mt-3 space-y-2 text-sm text-ink-600">
-                    <li className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-brand-600" />
-                      Sunday 24th May 2026
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-brand-600" />
-                      Brockwell Park, London
-                    </li>
-                  </ul>
-                  <a
-                    href={TICKET_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-700"
-                  >
-                    Book Tickets
-                    <Ticket className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-            </aside>
-
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
             {/* ─── Main article body ─── */}
-            <main className="order-1 lg:order-2 lg:col-span-6">
+            <main className="lg:col-span-2">
               <div className="prose prose-lg mx-auto max-w-article">
                 {/* Section 1 */}
                 <h2>Why Cross The Tracks Is One of London&apos;s Best Day Festivals</h2>
@@ -203,7 +163,7 @@ export default async function CrossTheTracksPage() {
                   headline slots auctioned off to the highest bidder, corporate
                   ones that feel more like branded experiences than music events,
                   and pocket-sized ones that never quite get the attention they
-                  deserve. And then there is Cross The Tracks &mdash; a festival
+                  deserve. And then there is Cross The Tracks,a festival
                   that has quietly, confidently carved out its own lane as one of
                   the most genuinely enjoyable days out in the city&apos;s cultural
                   calendar.
@@ -217,7 +177,7 @@ export default async function CrossTheTracksPage() {
                   deeply rooted in the communities that make South London one of
                   the most vibrant corners of the capital. From the moment you
                   walk through the gates, there is a sense that everyone is
-                  genuinely glad to be here &mdash; artists, vendors and audience
+                  genuinely glad to be here,artists, vendors and audience
                   alike.
                 </p>
 
@@ -250,7 +210,7 @@ export default async function CrossTheTracksPage() {
                   that means a lineup shaped around four of the richest,
                   deepest and most interconnected genres in modern history: jazz,
                   funk, soul and hip-hop. These are not genres that exist in
-                  isolation &mdash; they are a conversation stretching back
+                  isolation,they are a conversation stretching back
                   decades, and Cross The Tracks honours that conversation like
                   few other events in the UK.
                 </p>
@@ -272,7 +232,7 @@ export default async function CrossTheTracksPage() {
                   One of the great pleasures of Cross The Tracks is the space
                   between sets. You will wander from one stage to the next and
                   stumble upon something extraordinary you had never planned to
-                  see &mdash; a seven-piece band from South East London
+                  see,a seven-piece band from South East London
                   channelling Fela Kuti, a singer-songwriter quietly demolishing
                   a crowd with nothing but a guitar and the truth. It is that
                   element of discovery that keeps people coming back year after
@@ -281,7 +241,7 @@ export default async function CrossTheTracksPage() {
                 </p>
 
                 {/* Section 3 */}
-                <h2>More Than Music &mdash; Food, Drinks and Community</h2>
+                <h2>More Than Music: Food, Drinks and Community</h2>
 
                 <p>
                   Cross The Tracks is a full day out, not just a gig in a park.
@@ -292,7 +252,7 @@ export default async function CrossTheTracksPage() {
                   independent breweries in the city, with tasting sessions and
                   rare pours that will delight anyone who takes their hops
                   seriously. There are artisan market stalls, vinyl traders,
-                  vintage clothing, and independent makers &mdash; the kind of
+                  vintage clothing, and independent makers,the kind of
                   browsing that turns a quick look into an hour-long treasure
                   hunt.
                 </p>
@@ -302,7 +262,7 @@ export default async function CrossTheTracksPage() {
                   food offering is the sense of community woven through the
                   whole event. There are workshops, talks and panel discussions
                   that tap into the cultural currents running through jazz, soul,
-                  funk and hip-hop &mdash; from the history of sound system
+                  funk and hip-hop,from the history of sound system
                   culture to the future of independent music in London. Local
                   partners and community organisations are visibly present, and
                   there is a genuine warmth to the way the festival brings
@@ -322,7 +282,7 @@ export default async function CrossTheTracksPage() {
                   editions have sold out well in advance, and with the 2026
                   edition shaping up to be one of the strongest yet, there is
                   every reason to expect this year will be no different. Once
-                  word spreads about the lineup &mdash; and it will &mdash;
+                  word spreads about the lineup,and it will –
                   tickets will move fast.
                 </p>
 
@@ -331,7 +291,7 @@ export default async function CrossTheTracksPage() {
                   single ticket you get an entire day of world-class live music
                   across multiple stages, access to one of the best street food
                   gatherings in London, a craft beer fair, market stalls and
-                  cultural programming &mdash; all set in one of South London&apos;s
+                  cultural programming,all set in one of South London&apos;s
                   most beautiful parks. If you have ever been on the fence about
                   a festival and then kicked yourself when it sold out, consider
                   this your sign to commit early.
@@ -341,8 +301,8 @@ export default async function CrossTheTracksPage() {
                 <h2>Our Recommendation</h2>
 
                 <p>
-                  If you are into jazz, funk, soul or hip-hop &mdash; or if you
-                  just love a great day out in London &mdash; Cross The Tracks
+                  If you are into jazz, funk, soul or hip-hop,or if you
+                  just love a great day out in London,Cross The Tracks
                   should be at the top of your list this May. It is one of those
                   rare events that delivers on its promise every single time: a
                   beautiful setting, exceptional music, brilliant food and drink,
@@ -353,13 +313,25 @@ export default async function CrossTheTracksPage() {
                   Park.
                 </p>
 
-                <TicketCTA>Get Tickets &mdash; Cross The Tracks 2026</TicketCTA>
+                <TicketCTA>Get Tickets: Cross The Tracks 2026</TicketCTA>
               </div>
             </main>
 
             {/* ─── Right sidebar ─── */}
-            <aside className="order-3 lg:col-span-3">
+            <aside>
               <div className="space-y-6 lg:sticky lg:top-24">
+                {/* Promo flyer */}
+                <div className="overflow-hidden rounded-lg">
+                  <Image
+                    src={PROMO_IMAGE}
+                    alt="Cross The Tracks 2026 promo poster"
+                    width={540}
+                    height={675}
+                    className="h-auto w-full rounded-lg"
+                    unoptimized
+                  />
+                </div>
+
                 {/* Countdown (desktop) */}
                 <div className="hidden lg:block">
                   <CountdownTimer />
