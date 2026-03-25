@@ -36,7 +36,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ['var(--font-display)', 'Georgia', 'serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
         body:    ['var(--font-body)', 'system-ui', 'sans-serif'],
       },
       typography: {
@@ -45,8 +45,8 @@ const config: Config = {
             maxWidth: 'none',
             color: '#1a1b1e',
             a: { color: '#ed1148', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } },
-            h2: { fontFamily: 'var(--font-display)', fontWeight: '700', marginTop: '2em' },
-            h3: { fontFamily: 'var(--font-display)', fontWeight: '600' },
+            h2: { fontFamily: 'var(--font-display)', fontWeight: '800', marginTop: '2em' },
+            h3: { fontFamily: 'var(--font-display)', fontWeight: '700' },
             p:  { lineHeight: '1.8' },
             blockquote: { borderLeftColor: '#ed1148' },
           },
