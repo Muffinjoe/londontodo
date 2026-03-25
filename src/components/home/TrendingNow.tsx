@@ -1,8 +1,12 @@
 import Link from 'next/link'
-import type { SeedArticle } from '@/lib/seed-data'
+interface TrendingArticle {
+  slug: string
+  title: string
+  category: { name: string; color: string }
+}
 
 interface TrendingNowProps {
-  articles: SeedArticle[]
+  articles: TrendingArticle[]
 }
 
 export default function TrendingNow({ articles }: TrendingNowProps) {
