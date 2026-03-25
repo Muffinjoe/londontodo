@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div className="relative w-full overflow-hidden" style={{ height: 'clamp(220px, 35vw, 420px)' }}>
         <Image
           src="/images/london-hero-banner.jpg"
-          alt="London skyline with Tower Bridge and the Thames"
+          alt="Cross The Tracks festival crowd in London — Photo by Garry Jones"
           fill
           priority
           className="object-cover"
