@@ -101,7 +101,15 @@ export default async function CrossTheTracksPage() {
       <article>
         {/* ─── Hero ─── */}
         <header className="relative overflow-hidden bg-ink-900">
-          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/80 via-ink-900/60 to-ink-900" />
+          <Image
+            src="/images/ctt-hero.jpg"
+            alt="Cross The Tracks festival crowd at Brockwell Park — Photo: Metty Unuabona"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-ink-900/95" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <span className="mb-4 inline-block rounded-full bg-brand-600 px-4 py-1 text-xs font-bold uppercase tracking-widest text-white">
