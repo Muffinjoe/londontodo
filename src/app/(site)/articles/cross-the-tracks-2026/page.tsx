@@ -421,16 +421,28 @@ export default async function CrossTheTracksPage() {
                   caption="Cross The Tracks 2026 Second Wave Lineup"
                 />
 
-                {/* Gallery image */}
-                <figure className="not-prose my-10 overflow-hidden rounded-xl">
-                  <Image
-                    src="/images/ctt-crowd.jpg"
-                    alt="Festival-goers at Cross The Tracks — one word to describe it: Happy"
-                    width={720}
-                    height={900}
-                    className="h-auto w-full rounded-xl"
-                  />
-                </figure>
+                {/* Photo Gallery */}
+                <div className="not-prose my-12">
+                  <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">
+                    The Cross The Tracks Experience
+                  </h3>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+                    {[1,2,3,4,5,6,7,8,9,10,11,12].map((n) => (
+                      <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
+                        <Image
+                          src={`/images/ctt-gallery-${n}.jpg`}
+                          alt={`Cross The Tracks festival photo ${n}`}
+                          fill
+                          className="object-cover transition-transform duration-300 hover:scale-105"
+                          sizes="(max-width: 640px) 50vw, 33vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-center text-xs text-ink-400">
+                    Photos from Cross The Tracks
+                  </p>
+                </div>
 
                 {/* Section 3 */}
                 <h2>More Than Music: Food, Drinks and Community</h2>
