@@ -11,10 +11,10 @@ const prisma = new PrismaClient()
 // Broken Unsplash IDs mapped to working replacements
 const BROKEN_IDS: Record<string, string> = {
   '1545042746-ec9e50e7db86': '1526129318478-62ed807ebdf9',
-  '1517502884422-e8e5f25a7bff': '1534430480872-3498386e7856',
-  '1533929736562-87b04b5ba4ea': '1542435503-956c469947f6',
-  '1528809217021-151305b04551': '1569587112025-0d460e81a126',
-  '1582719471384-894fbb16564e': '1501594907352-04cda38ebc29',
+  '1517502884422-e8e5f25a7bff': '1520986606214-8b456906c813',
+  '1533929736562-87b04b5ba4ea': '1517248135467-4c7edcad34c4',
+  '1528809217021-151305b04551': '1526129318478-62ed807ebdf9',
+  '1582719471384-894fbb16564e': '1529655683826-aba9b3e77383',
   '1414235077428-338989a2e8c0': '1506501139174-099022df5260',
 }
 
@@ -25,7 +25,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   'culture':      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop',
   'exhibitions':  'https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=800&h=600&fit=crop',
   'theatre':      'https://images.unsplash.com/photo-1503095396549-807759245b35?w=800&h=600&fit=crop',
-  'family':       'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop',
+  'family':       'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800&h=600&fit=crop',
   'markets':      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop',
   'free':         'https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=600&fit=crop',
 }
