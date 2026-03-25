@@ -6,7 +6,6 @@ import CountdownTimer from '@/components/shared/CountdownTimer'
 import VideoEmbed from '@/components/shared/VideoEmbed'
 import ShareButtons from '@/components/shared/ShareButtons'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
-import LineupSignupForm from '@/components/shared/LineupSignupForm'
 
 const TICKET_URL = 'https://go.kaboodle.co.uk/CTT26P503'
 const ARTICLE_URL = 'https://londontodo.com/articles/cross-the-tracks-2026'
@@ -422,17 +421,16 @@ export default async function CrossTheTracksPage() {
                   caption="Cross The Tracks 2026 Second Wave Lineup"
                 />
 
-                {/* ─── Lineup Coming Soon ─── */}
-                <div className="not-prose my-12 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-50 to-white p-8 sm:p-10">
-                  <h3 className="font-display text-2xl font-extrabold text-ink-900">
-                    2026 Lineup Coming Soon
-                  </h3>
-                  <p className="mt-3 text-base leading-relaxed text-ink-600">
-                    The full lineup for Cross The Tracks 2026 will be announced
-                    soon. Sign up to be the first to know.
-                  </p>
-                  <LineupSignupForm />
-                </div>
+                {/* Gallery image */}
+                <figure className="not-prose my-10 overflow-hidden rounded-xl">
+                  <Image
+                    src="/images/ctt-crowd.jpg"
+                    alt="Festival-goers at Cross The Tracks — one word to describe it: Happy"
+                    width={720}
+                    height={900}
+                    className="h-auto w-full rounded-xl"
+                  />
+                </figure>
 
                 {/* Section 3 */}
                 <h2>More Than Music: Food, Drinks and Community</h2>
@@ -559,7 +557,7 @@ export default async function CrossTheTracksPage() {
             <aside>
               <div className="space-y-6 lg:sticky lg:top-24">
                 {/* Promo flyer */}
-                <div className="overflow-hidden rounded-lg">
+                <a href="https://www.xthetracks.com/" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg transition-opacity hover:opacity-90">
                   <Image
                     src={PROMO_IMAGE}
                     alt="Cross The Tracks 2026 promo poster"
@@ -568,7 +566,7 @@ export default async function CrossTheTracksPage() {
                     className="h-auto w-full rounded-lg"
                     unoptimized
                   />
-                </div>
+                </a>
 
                 {/* Countdown (desktop) */}
                 <div className="hidden lg:block">
