@@ -65,14 +65,19 @@ function TicketCTA({ children }: { children: string }) {
   )
 }
 
-function Testimonial({ quote, attribution }: { quote: string; attribution: string }) {
+function Testimonial({ quote, attribution, href }: { quote: string; attribution: string; href?: string }) {
   return (
     <blockquote className="my-10 border-l-4 border-brand-600 py-2 pl-6">
       <p className="text-lg italic leading-relaxed text-ink-700 sm:text-xl">
         &ldquo;{quote}&rdquo;
       </p>
       <cite className="mt-3 block text-sm font-medium not-italic text-ink-400">
-        &mdash; {attribution}
+        &mdash;{' '}
+        {href ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="text-brand-600 underline decoration-brand-200 underline-offset-2 hover:decoration-brand-600">
+            {attribution}
+          </a>
+        ) : attribution}
       </cite>
     </blockquote>
   )
@@ -359,8 +364,9 @@ export default async function CrossTheTracksPage() {
 
                 {/* Testimonial 1 */}
                 <Testimonial
-                  quote="Genuinely one of the best days I've had at a festival in London. The music, the food, the people — everything was on point."
-                  attribution="Festival-goer via Instagram"
+                  quote="A line-up that appealed across generations and musical tastes."
+                  attribution="Evening Standard"
+                  href="https://www.standard.co.uk/culture/music/cross-the-tracks-festival-review-jazz-soul-lianne-la-havas-b953837.html"
                 />
 
                 <VideoEmbed
@@ -412,8 +418,9 @@ export default async function CrossTheTracksPage() {
 
                 {/* Testimonial 2 */}
                 <Testimonial
-                  quote="Cross The Tracks gets the balance right between big names and discovery. You always leave having found something new."
-                  attribution="Time Out London"
+                  quote="The sense of community is palpable, everyone is beaming while music and laughter fills the air."
+                  attribution="Overblown Mag"
+                  href="https://overblown.co.uk/reviews/cross-the-tracks-2025-review/"
                 />
 
                 <VideoEmbed
@@ -477,8 +484,9 @@ export default async function CrossTheTracksPage() {
 
                 {/* Testimonial 3 */}
                 <Testimonial
-                  quote="If you only go to one day festival in London this year, make it Cross The Tracks."
-                  attribution="Jazzwise Magazine"
+                  quote="A full immersion into a world where music meets art, food and culture."
+                  attribution="We Plug Good Music"
+                  href="https://www.wepluggoodmusic.com/wpgm-previews-cross-the-tracks-2025/"
                 />
 
                 <TicketCTA>Book Now Before It Sells Out</TicketCTA>
