@@ -22,8 +22,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   // Derive content from seed data
-  const heroArticle = homepageArticles[0]
-  const latestArticles = homepageArticles.slice(1, 7)
+  const latestArticles = homepageArticles.slice(0, 6)
   const trendingArticles = homepageArticles.slice(0, 5)
   const editorsPicks = [homepageArticles[2], homepageArticles[4], homepageArticles[9]]
 
@@ -45,7 +44,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <HeroSection article={heroArticle} />
+      <HeroSection />
 
       {/* ── Featured Events ── */}
       <FeaturedEvents events={homepageEvents} />

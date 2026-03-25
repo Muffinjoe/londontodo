@@ -1,56 +1,47 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { formatDate } from '@/lib/utils'
-import type { SeedArticle } from '@/lib/seed-data'
 
-interface HeroSectionProps {
-  article: SeedArticle
-}
-
-export default function HeroSection({ article }: HeroSectionProps) {
-  const { slug, title, subtitle, featureImage, category, publishedAt, author } = article
-
+export default function HeroSection() {
   return (
     <section className="relative">
-      <Link href={`/articles/${slug}`} className="group block">
-        <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
-          <Image
-            src={featureImage}
-            alt={title}
-            fill
-            priority
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="100vw"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+      <div className="relative w-full overflow-hidden" style={{ height: 'clamp(220px, 35vw, 420px)' }}>
+        <Image
+          src="/images/london-hero-banner.jpg"
+          alt="London skyline with Tower Bridge and the Thames"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-          {/* Content */}
-          <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 lg:p-12">
-            <div className="mx-auto w-full max-w-7xl">
-              <span
-                className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white"
-                style={{ backgroundColor: category.color }}
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-8 lg:p-12">
+          <div className="mx-auto w-full max-w-7xl">
+            <h1 className="max-w-3xl font-display text-2xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
+              Your guide to the best of London
+            </h1>
+            <p className="mt-2 max-w-2xl text-sm text-white/80 sm:text-base lg:text-lg">
+              Events, exhibitions, restaurants, bars, markets, and neighbourhood guides — updated daily.
+            </p>
+            <div className="mt-4 flex gap-3">
+              <Link
+                href="/events/browse"
+                className="inline-flex items-center rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
               >
-                {category.name}
-              </span>
-              <h1 className="mt-3 max-w-3xl font-display text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                {title}
-              </h1>
-              {subtitle && (
-                <p className="mt-2 max-w-2xl text-sm text-white/80 sm:text-base lg:text-lg">
-                  {subtitle}
-                </p>
-              )}
-              <div className="mt-3 flex items-center gap-2 text-xs text-white/60 sm:text-sm">
-                <span>{author.name}</span>
-                <span className="h-0.5 w-0.5 rounded-full bg-white/40" />
-                <span>{formatDate(publishedAt)}</span>
-              </div>
+                What&apos;s on
+              </Link>
+              <Link
+                href="/this-weekend"
+                className="inline-flex items-center rounded-full bg-white/15 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/25"
+              >
+                This weekend
+              </Link>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </section>
   )
 }
