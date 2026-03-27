@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Calendar, MapPin, Music, Ticket, ExternalLink, ArrowRight } from 'lucide-react'
 import ShareButtons from '@/components/shared/ShareButtons'
+import VideoEmbed from '@/components/shared/VideoEmbed'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
 
 const TICKET_URL = 'https://go.kaboodle.co.uk/City-Splash-2026'
@@ -36,7 +37,7 @@ export default function Page() {
     <>
       <article>
         <header className="relative overflow-hidden bg-ink-900">
-          <Image src="/images/cs-hero.jpg" alt="City Splash Festival" fill priority className="object-cover" sizes="100vw" />
+          <Image src="/images/cs-gallery-6.jpg" alt="City Splash Festival crowd in Brockwell Park" fill priority className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-ink-900/95" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
@@ -61,7 +62,25 @@ export default function Page() {
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
             <main className="lg:col-span-2">
               <div className="prose prose-lg mx-auto max-w-article" dangerouslySetInnerHTML={{ __html: BODY }} />
-              <div className="mx-auto max-w-article"><TicketCTA>Get City Splash 2026 Tickets</TicketCTA></div>
+
+              <div className="mx-auto max-w-article">
+                <VideoEmbed url="https://www.youtube.com/embed/7xNCfATaqi4" caption="City Splash 2026 lineup announcement" />
+
+                <div className="not-prose my-12">
+                  <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">The City Splash Experience</h3>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+                    {[1,2,3,4,5,6].map((n) => (
+                      <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
+                        <Image src={`/images/cs-gallery-${n}.jpg`} alt={`City Splash photo ${n}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="(max-width: 640px) 50vw, 33vw" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <VideoEmbed url="https://www.youtube.com/embed/4OSWsbfFLn0" caption="Tarrus Riley performs She's Royal live at City Splash 2025" />
+
+                <TicketCTA>Get City Splash 2026 Tickets</TicketCTA>
+              </div>
               <div className="mx-auto max-w-article mt-8 grid gap-4 sm:grid-cols-2">
                 <Link href="/articles/city-splash-2026" className="group flex items-center gap-2 rounded-xl border border-ink-100 bg-white px-5 py-4 text-sm font-semibold text-ink-900 transition-colors hover:border-brand-200 hover:bg-brand-50">
                   <span className="flex-1">City Splash 2026: Main Article</span>
