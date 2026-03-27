@@ -333,6 +333,17 @@ export default function CitySplashPage() {
             {/* Right sidebar */}
             <aside>
               <div className="space-y-6 lg:sticky lg:top-24">
+                {/* Flyer */}
+                <a href="https://www.city-splash.com/" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg transition-opacity hover:opacity-90">
+                  <Image
+                    src="/images/cs-flyer.jpg"
+                    alt="City Splash 2026 festival flyer"
+                    width={540}
+                    height={675}
+                    className="h-auto w-full rounded-lg"
+                  />
+                </a>
+
                 <div className="hidden lg:block">
                   <CountdownTimer />
                 </div>
