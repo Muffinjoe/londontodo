@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import ShareButtons from '@/components/shared/ShareButtons'
 import NewsletterBox from '@/components/shared/NewsletterBox'
+import VideoEmbed from '@/components/shared/VideoEmbed'
 
 const ARTICLE_URL = 'https://londontodo.com/articles/best-things-to-do-in-london-2026'
 const ARTICLE_TITLE = "The Best Things To Do in London Right Now (2026 Guide)"
@@ -49,7 +50,54 @@ export default function Page() {
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{ __html: BODY }} />
+        {(() => {
+          const sections = BODY.split(/(?=<h2)/i)
+          return sections.map((section, i) => (
+            <div key={i}>
+              <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
+              {i === 1 && (
+                <>
+                  <VideoEmbed url="https://www.youtube.com/embed/pscBeq1Vek8" caption="London from above" />
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=500&fit=crop" alt="London skyline at sunset" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">London skyline at sunset</figcaption>
+                  </figure>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&h=500&fit=crop" alt="Westminster Bridge and Big Ben" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Westminster Bridge and Big Ben</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 2 && (
+                <>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=500&fit=crop" alt="Big Ben with red London bus" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Big Ben with a classic red London bus</figcaption>
+                  </figure>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=500&fit=crop" alt="River Thames" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">The River Thames winding through the city</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 3 && (
+                <figure className="not-prose my-8">
+                  <Image src="https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=800&h=500&fit=crop" alt="Regent Street with flags" width={800} height={500} className="w-full rounded-lg" />
+                  <figcaption className="mt-2 text-center text-xs text-ink-400">Regent Street dressed in flags</figcaption>
+                </figure>
+              )}
+              {i === 4 && (
+                <>
+                  <VideoEmbed url="https://www.youtube.com/embed/LyGO1ReaKPc" caption="London's food scene" />
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=500&fit=crop" alt="London food market" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">A bustling London food market</figcaption>
+                  </figure>
+                </>
+              )}
+            </div>
+          ))
+        })()}
 
         <div className="mt-12">
           <NewsletterBox variant="inline" />

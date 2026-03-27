@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import ShareButtons from '@/components/shared/ShareButtons'
 import NewsletterBox from '@/components/shared/NewsletterBox'
+import VideoEmbed from '@/components/shared/VideoEmbed'
 
 const ARTICLE_URL = 'https://londontodo.com/articles/free-things-to-do-in-london-2026'
 const ARTICLE_TITLE = "Free Things To Do in London That Are Actually Worth It"
@@ -49,7 +50,41 @@ export default function Page() {
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{ __html: BODY }} />
+        {(() => {
+          const sections = BODY.split(/(?=<h2)/i)
+          return sections.map((section, i) => (
+            <div key={i}>
+              <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
+              {i === 1 && (
+                <>
+                  <VideoEmbed url="https://www.youtube.com/embed/kDTFtn6xNEk" caption="Free London experiences" />
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=800&h=500&fit=crop" alt="Regent Street with flags" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Regent Street dressed in flags</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 2 && (
+                <>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800&h=500&fit=crop" alt="Big Ben at sunset" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Big Ben glowing at sunset</figcaption>
+                  </figure>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=500&fit=crop" alt="River Thames" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">The River Thames on a clear day</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 3 && (
+                <figure className="not-prose my-8">
+                  <Image src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=500&fit=crop" alt="London food market" width={800} height={500} className="w-full rounded-lg" />
+                  <figcaption className="mt-2 text-center text-xs text-ink-400">Exploring a London food market</figcaption>
+                </figure>
+              )}
+            </div>
+          ))
+        })()}
 
         <div className="mt-12">
           <NewsletterBox variant="inline" />

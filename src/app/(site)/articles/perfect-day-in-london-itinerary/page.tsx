@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import ShareButtons from '@/components/shared/ShareButtons'
 import NewsletterBox from '@/components/shared/NewsletterBox'
+import VideoEmbed from '@/components/shared/VideoEmbed'
 
 const ARTICLE_URL = 'https://londontodo.com/articles/perfect-day-in-london-itinerary'
 const ARTICLE_TITLE = "A Perfect Day in London: The Simple Itinerary"
@@ -49,7 +50,44 @@ export default function Page() {
       </header>
 
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{ __html: BODY }} />
+        {(() => {
+          const sections = BODY.split(/(?=<h2)/i)
+          return sections.map((section, i) => (
+            <div key={i}>
+              <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
+              {i === 1 && (
+                <>
+                  <VideoEmbed url="https://www.youtube.com/embed/PgUlXIQJiX8" caption="A morning on London's South Bank" />
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=500&fit=crop" alt="Thames riverside path" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Walking along the Thames</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 2 && (
+                <>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&h=500&fit=crop" alt="Westminster Bridge" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Westminster Bridge and the Houses of Parliament</figcaption>
+                  </figure>
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=500&fit=crop" alt="Big Ben with red bus" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">Big Ben and a red London bus</figcaption>
+                  </figure>
+                </>
+              )}
+              {i === 3 && (
+                <>
+                  <VideoEmbed url="https://www.youtube.com/embed/LyGO1ReaKPc" caption="London's food scene" />
+                  <figure className="not-prose my-8">
+                    <Image src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop" alt="Restaurant interior" width={800} height={500} className="w-full rounded-lg" />
+                    <figcaption className="mt-2 text-center text-xs text-ink-400">A cosy London restaurant</figcaption>
+                  </figure>
+                </>
+              )}
+            </div>
+          ))
+        })()}
 
         <div className="mt-12">
           <NewsletterBox variant="inline" />
