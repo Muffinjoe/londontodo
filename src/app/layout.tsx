@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — Your Guide to the Best Things to Do in London`,
     description: SITE_DESCRIPTION,
+    images: [{ url: `${SITE_URL}/images/london-hero-banner.jpg`, width: 1200, height: 630, alt: 'LondonTodo — Your Guide to London' }],
   },
   twitter: {
     card: 'summary_large_image',

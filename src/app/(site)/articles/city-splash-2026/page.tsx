@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Reggae, dancehall, afrobeats and amapiano in Brockwell Park. 60+ artists, 6 stages, 60+ food vendors.',
     url: ARTICLE_URL,
     type: 'article',
-    images: [{ url: '/images/cs-hero.jpg', width: 1200, height: 630, alt: 'City Splash Festival' }],
+    images: [{ url: 'https://londontodo.com/images/cs-flyer.jpg', width: 1080, height: 1350, alt: 'City Splash Festival 2026' }],
   },
 }
 
