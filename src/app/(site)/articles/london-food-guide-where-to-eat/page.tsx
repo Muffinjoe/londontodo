@@ -55,32 +55,8 @@ export default function Page() {
           return sections.map((section, i) => (
             <div key={i}>
               <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
-              {i === 1 && (
-                <>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=500&fit=crop" alt="London food market" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">Fresh food at Borough Market</figcaption>
-                  </figure>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=500&fit=crop" alt="River Thames" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">The Thames near Southwark</figcaption>
-                  </figure>
-                </>
-              )}
               {i === 2 && (
                 <VideoEmbed url="https://www.youtube.com/embed/LyGO1ReaKPc" caption="Eating in London" />
-              )}
-              {i === 3 && (
-                <figure className="not-prose my-8">
-                  <Image src="https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=800&h=500&fit=crop" alt="Regent Street with flags" width={800} height={500} className="w-full rounded-lg" />
-                  <figcaption className="mt-2 text-center text-xs text-ink-400">Regent Street in central London</figcaption>
-                </figure>
-              )}
-              {i === 4 && (
-                <figure className="not-prose my-8">
-                  <Image src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&h=500&fit=crop" alt="London bar and drinks" width={800} height={500} className="w-full rounded-lg" />
-                  <figcaption className="mt-2 text-center text-xs text-ink-400">A lively London bar</figcaption>
-                </figure>
               )}
             </div>
           ))

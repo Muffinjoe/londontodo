@@ -56,28 +56,10 @@ export default function Page() {
             <div key={i}>
               <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
               {i === 2 && (
-                <>
-                  <VideoEmbed url="https://www.youtube.com/embed/CziRw5gGb5g" caption="Exploring Camden" />
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=500&fit=crop" alt="Big Ben with red London bus" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">Big Ben with a classic red London bus</figcaption>
-                  </figure>
-                </>
+                <VideoEmbed url="https://www.youtube.com/embed/CziRw5gGb5g" caption="Exploring Camden" />
               )}
               {i === 3 && (
                 <VideoEmbed url="https://www.youtube.com/embed/kDTFtn6xNEk" caption="London's immersive experiences" />
-              )}
-              {i === 5 && (
-                <>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1506501139174-099022df5260?w=800&h=500&fit=crop" alt="London aerial view at sunset" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">London from above at sunset</figcaption>
-                  </figure>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=500&fit=crop" alt="London skyline" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">The London skyline</figcaption>
-                  </figure>
-                </>
               )}
             </div>
           ))

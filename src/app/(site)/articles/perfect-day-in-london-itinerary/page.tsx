@@ -56,34 +56,10 @@ export default function Page() {
             <div key={i}>
               <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
               {i === 1 && (
-                <>
-                  <VideoEmbed url="https://www.youtube.com/embed/PgUlXIQJiX8" caption="A morning on London's South Bank" />
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&h=500&fit=crop" alt="Thames riverside path" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">Walking along the Thames</figcaption>
-                  </figure>
-                </>
-              )}
-              {i === 2 && (
-                <>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&h=500&fit=crop" alt="Westminster Bridge" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">Westminster Bridge and the Houses of Parliament</figcaption>
-                  </figure>
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1520986606214-8b456906c813?w=800&h=500&fit=crop" alt="Big Ben with red bus" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">Big Ben and a red London bus</figcaption>
-                  </figure>
-                </>
+                <VideoEmbed url="https://www.youtube.com/embed/PgUlXIQJiX8" caption="A morning on London's South Bank" />
               )}
               {i === 3 && (
-                <>
-                  <VideoEmbed url="https://www.youtube.com/embed/LyGO1ReaKPc" caption="London's food scene" />
-                  <figure className="not-prose my-8">
-                    <Image src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop" alt="Restaurant interior" width={800} height={500} className="w-full rounded-lg" />
-                    <figcaption className="mt-2 text-center text-xs text-ink-400">A cosy London restaurant</figcaption>
-                  </figure>
-                </>
+                <VideoEmbed url="https://www.youtube.com/embed/LyGO1ReaKPc" caption="London's food scene" />
               )}
             </div>
           ))
