@@ -61,23 +61,55 @@ export default function Page() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
             <main className="lg:col-span-2">
-              <div className="prose prose-lg mx-auto max-w-article" dangerouslySetInnerHTML={{ __html: BODY }} />
-
               <div className="mx-auto max-w-article">
-                <VideoEmbed url="https://www.youtube.com/embed/4OSWsbfFLn0" caption="Tarrus Riley performs She's Royal live at City Splash 2025" />
+                {(() => {
+                  const sections = BODY.split(/(?=<h2)/i)
+                  return sections.map((section, i) => (
+                    <div key={i}>
+                      <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: section }} />
 
-                <div className="not-prose my-12">
-                  <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">The City Splash Experience</h3>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
-                    {[1,2,3,4,5,6].map((n) => (
-                      <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
-                        <Image src={`/images/cs-gallery-${n}.jpg`} alt={`City Splash photo ${n}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="(max-width: 640px) 50vw, 33vw" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                      {/* After section 1: Tarrus Riley video */}
+                      {i === 1 && (
+                        <VideoEmbed url="https://www.youtube.com/embed/4OSWsbfFLn0" caption="Tarrus Riley performs She's Royal live at City Splash 2025" />
+                      )}
 
-                <VideoEmbed url="https://www.youtube.com/embed/7xNCfATaqi4" caption="City Splash 2026 lineup announcement" />
+                      {/* After section 2: first 3 gallery photos + CTA */}
+                      {i === 2 && (
+                        <>
+                          <div className="not-prose my-10">
+                            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                              {[1,2,3].map((n) => (
+                                <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
+                                  <Image src={`/images/cs-gallery-${n}.jpg`} alt={`City Splash photo ${n}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <TicketCTA>Book City Splash 2026 Tickets</TicketCTA>
+                        </>
+                      )}
+
+                      {/* After section 3: lineup video */}
+                      {i === 3 && (
+                        <VideoEmbed url="https://www.youtube.com/embed/7xNCfATaqi4" caption="City Splash 2026 lineup announcement" />
+                      )}
+
+                      {/* After last section: remaining gallery */}
+                      {i === sections.length - 1 && (
+                        <div className="not-prose my-10">
+                          <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">The City Splash Experience</h3>
+                          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                            {[4,5,6].map((n) => (
+                              <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
+                                <Image src={`/images/cs-gallery-${n}.jpg`} alt={`City Splash photo ${n}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))
+                })()}
 
                 <TicketCTA>Get City Splash 2026 Tickets</TicketCTA>
               </div>
