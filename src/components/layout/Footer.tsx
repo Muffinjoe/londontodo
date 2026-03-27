@@ -21,7 +21,7 @@ const footerNav = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Advertise', href: '/advertise' },
+    { name: 'Advertise', href: 'https://packlondon.com/' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms', href: '/terms' },
   ],
