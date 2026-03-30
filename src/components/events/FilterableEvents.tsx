@@ -85,7 +85,11 @@ export default function FilterableEvents({
         if (familyOnly && !event.familyFriendly) return false
         return true
       })
-      .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+      .sort((a, b) => {
+        const dateCompare = new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+        if (dateCompare !== 0) return dateCompare
+        return a.title.localeCompare(b.title)
+      })
   }, [events, dateFilter, categoryFilter, areaFilter, freeOnly, familyOnly])
 
   function clearFilters() {
