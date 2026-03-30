@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { cn } from '@/lib/utils'
-import { Mail, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
+import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react'
 
 interface NewsletterBoxProps {
   variant?: 'inline' | 'sidebar'
@@ -20,10 +20,10 @@ export default function NewsletterBox({
 
   const defaultHeadline = variant === 'sidebar'
     ? 'London in your inbox'
-    : 'Get the best of London in your inbox'
+    : 'Never miss the best of London'
   const defaultDesc = variant === 'sidebar'
-    ? 'Our editors\' picks, every Thursday.'
-    : 'Weekly picks of events, openings, and hidden gems — curated by our editors.'
+    ? 'Free weekly picks, every Thursday.'
+    : 'Our editors\' picks of events, openings, and hidden gems, delivered every Thursday.'
 
   const h = headline ?? defaultHeadline
   const d = description ?? defaultDesc
@@ -46,104 +46,91 @@ export default function NewsletterBox({
     }
   }
 
-  // Success state
   if (status === 'success') {
     return (
       <div className={cn(
-        'flex items-center gap-3 rounded-xl bg-green-50 p-5',
-        variant === 'inline' && 'my-8 justify-center',
+        'rounded-2xl border border-green-200 bg-green-50 p-6 text-center',
+        variant === 'inline' && 'my-8',
       )}>
-        <CheckCircle className="h-5 w-5 flex-shrink-0 text-green-600" />
-        <div>
-          <p className="text-sm font-semibold text-green-900">You&apos;re subscribed!</p>
-          <p className="text-xs text-green-700">See you Thursday.</p>
-        </div>
+        <CheckCircle className="mx-auto h-8 w-8 text-green-500" />
+        <p className="mt-2 text-sm font-semibold text-green-900">You&apos;re in!</p>
+        <p className="mt-0.5 text-xs text-green-600">See you Thursday.</p>
       </div>
     )
   }
 
-  // Sidebar variant — compact, clean
+  // Sidebar
   if (variant === 'sidebar') {
     return (
-      <div className="rounded-xl bg-ink-900 p-5">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600">
-            <Mail className="h-4 w-4 text-white" />
-          </div>
-          <h3 className="text-sm font-bold text-white">{h}</h3>
-        </div>
-        {d && <p className="mt-2 text-xs leading-relaxed text-ink-300">{d}</p>}
-        <form onSubmit={handleSubmit} className="mt-3 space-y-2">
+      <div className="rounded-2xl border border-ink-100 bg-white p-5">
+        <h3 className="font-display text-base font-extrabold text-ink-900">{h}</h3>
+        {d && <p className="mt-1 text-xs leading-relaxed text-ink-400">{d}</p>}
+        <form onSubmit={handleSubmit} className="mt-3 space-y-2.5">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
+            placeholder="you@email.com"
             required
-            className="w-full rounded-lg border border-ink-700 bg-ink-800 px-3.5 py-2.5 text-sm text-white placeholder:text-ink-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="w-full rounded-xl border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100 transition-colors"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500 disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {status === 'loading' ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              'Subscribe'
+              <>Subscribe <Send className="h-3.5 w-3.5" /></>
             )}
           </button>
         </form>
         {status === 'error' && (
-          <div className="mt-2 flex items-center gap-1.5 text-xs text-red-400">
+          <div className="mt-2 flex items-center gap-1.5 text-xs text-red-500">
             <AlertCircle className="h-3 w-3" />
             <span>Something went wrong. Try again.</span>
           </div>
         )}
-        <p className="mt-2.5 text-center text-[10px] text-ink-500">No spam, ever. Unsubscribe anytime.</p>
+        <p className="mt-3 text-center text-[10px] text-ink-300">No spam. Unsubscribe anytime.</p>
       </div>
     )
   }
 
-  // Inline variant — wider, used in article bodies and footer
+  // Inline
   return (
-    <div className="my-8 rounded-xl bg-ink-900 p-6 sm:p-8">
+    <div className="my-8 overflow-hidden rounded-2xl border border-ink-100 bg-white p-6 sm:p-8">
       <div className="mx-auto max-w-lg text-center">
-        <div className="mb-1 flex items-center justify-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-600">
-            <Mail className="h-4 w-4 text-white" />
-          </div>
-        </div>
-        {h && <h3 className="mt-2 font-display text-lg font-extrabold text-white sm:text-xl">{h}</h3>}
-        {d && <p className="mt-1.5 text-sm text-ink-300">{d}</p>}
-        <form onSubmit={handleSubmit} className="mx-auto mt-4 flex max-w-sm gap-2">
+        {h && <h3 className="font-display text-xl font-extrabold text-ink-900 sm:text-2xl">{h}</h3>}
+        {d && <p className="mt-2 text-sm text-ink-500">{d}</p>}
+        <form onSubmit={handleSubmit} className="mx-auto mt-5 flex max-w-md gap-2">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email address"
             required
-            className="flex-1 rounded-full border border-ink-700 bg-ink-800 px-4 py-2.5 text-sm text-white placeholder:text-ink-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="flex-1 rounded-xl border border-ink-200 bg-ink-50 px-4 py-3 text-sm text-ink-900 placeholder:text-ink-300 focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100 transition-colors"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="rounded-full bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-500 disabled:opacity-60"
+            className="flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {status === 'loading' ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              'Subscribe'
+              <>Subscribe <Send className="h-3.5 w-3.5" /></>
             )}
           </button>
         </form>
         {status === 'error' && (
-          <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-red-400">
+          <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-red-500">
             <AlertCircle className="h-3 w-3" />
             <span>Something went wrong. Try again.</span>
           </div>
         )}
-        <p className="mt-3 text-[11px] text-ink-500">No spam, ever. Unsubscribe anytime.</p>
+        <p className="mt-3 text-xs text-ink-300">No spam. Unsubscribe anytime.</p>
       </div>
     </div>
   )
