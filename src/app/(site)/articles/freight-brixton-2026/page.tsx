@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     type: 'article',
     images: [{ url: 'https://www.londontodo.com/images/freight-hero.jpg', width: 1200, height: 630, alt: 'Freight Brixton rooftop venue' }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: ARTICLE_TITLE,
+    description: "London's biggest rooftop venue opens in Brixton. Live music, DJs, food, cocktails, and big-screen sports from May 7th.",
+    images: ['https://www.londontodo.com/images/freight-hero.jpg'],
+  },
 }
 
 function TicketCTA({ children }: { children: string }) {
