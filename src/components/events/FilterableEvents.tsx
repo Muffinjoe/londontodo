@@ -76,14 +76,16 @@ export default function FilterableEvents({
   const [familyOnly, setFamilyOnly] = useState(false)
 
   const filteredEvents = useMemo(() => {
-    return events.filter((event) => {
-      if (!matchesDateFilter(event.startDate, dateFilter)) return false
-      if (categoryFilter !== 'all' && event.category.slug !== categoryFilter) return false
-      if (areaFilter !== 'all' && event.area.slug !== areaFilter) return false
-      if (freeOnly && event.priceType !== 'FREE') return false
-      if (familyOnly && !event.familyFriendly) return false
-      return true
-    })
+    return events
+      .filter((event) => {
+        if (!matchesDateFilter(event.startDate, dateFilter)) return false
+        if (categoryFilter !== 'all' && event.category.slug !== categoryFilter) return false
+        if (areaFilter !== 'all' && event.area.slug !== areaFilter) return false
+        if (freeOnly && event.priceType !== 'FREE') return false
+        if (familyOnly && !event.familyFriendly) return false
+        return true
+      })
+      .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
   }, [events, dateFilter, categoryFilter, areaFilter, freeOnly, familyOnly])
 
   function clearFilters() {
