@@ -83,7 +83,7 @@ export default function Page() {
       <JsonLd />
       <article>
         <header className="relative overflow-hidden bg-ink-900">
-          <Image src="/images/freight-hero.jpg" alt="Freight Brixton - London's Biggest Rooftop Venue" fill priority className="object-cover" sizes="100vw" />
+          <Image src="/images/freight-venue-2.jpg" alt="Freight Brixton - London's Biggest Rooftop Venue" fill priority className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-ink-900/95" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
@@ -118,27 +118,33 @@ export default function Page() {
 
                     {i === 1 && (
                       <>
-                        <figure className="not-prose my-8">
-                          <Image src="/images/freight-venue-2.jpg" alt="Freight Brixton interior with stage lighting" width={800} height={400} className="w-full rounded-lg" />
-                          <figcaption className="mt-2 text-center text-xs text-ink-400">Inside Freight Brixton</figcaption>
-                        </figure>
+                        <a href="https://www.freightbrixton.com/" target="_blank" rel="noopener noreferrer" className="not-prose my-8 block">
+                          <figure>
+                            <Image src="/images/freight-hero.jpg" alt="Freight Brixton - London's Biggest Rooftop Venue" width={800} height={400} className="w-full rounded-lg transition-opacity hover:opacity-90" />
+                            <figcaption className="mt-2 text-center text-xs text-ink-400">Freight Brixton — London&apos;s Biggest Rooftop Venue</figcaption>
+                          </figure>
+                        </a>
                         <TicketCTA>See All Upcoming Events</TicketCTA>
                       </>
                     )}
 
                     {i === 2 && (
-                      <figure className="not-prose my-8">
-                        <Image src="/images/freight-events.jpg" alt="Freight Brixton summer 2026 event lineup" width={800} height={400} className="w-full rounded-lg" />
-                        <figcaption className="mt-2 text-center text-xs text-ink-400">Coming this summer at Freight Brixton</figcaption>
-                      </figure>
+                      <a href="https://www.freightbrixton.com/freightopening" target="_blank" rel="noopener noreferrer" className="not-prose my-8 block">
+                        <figure>
+                          <Image src="/images/freight-events.jpg" alt="Freight Brixton summer 2026 event lineup" width={800} height={400} className="w-full rounded-lg transition-opacity hover:opacity-90" />
+                          <figcaption className="mt-2 text-center text-xs text-ink-400">Coming this summer at Freight Brixton</figcaption>
+                        </figure>
+                      </a>
                     )}
 
                     {i === 3 && (
                       <>
-                        <figure className="not-prose my-8">
-                          <Image src="/images/freight-venue-1.jpg" alt="Freight Brixton venue seating and screen" width={800} height={400} className="w-full rounded-lg" />
-                          <figcaption className="mt-2 text-center text-xs text-ink-400">The main space at Freight Brixton</figcaption>
-                        </figure>
+                        <a href="https://www.freightbrixton.com/" target="_blank" rel="noopener noreferrer" className="not-prose my-8 block">
+                          <figure>
+                            <Image src="/images/freight-venue-1.jpg" alt="Freight Brixton venue seating and screen" width={800} height={400} className="w-full rounded-lg transition-opacity hover:opacity-90" />
+                            <figcaption className="mt-2 text-center text-xs text-ink-400">The main space at Freight Brixton</figcaption>
+                          </figure>
+                        </a>
                         <TicketCTA>Book Your Spot at Freight Brixton</TicketCTA>
                       </>
                     )}
@@ -159,6 +165,9 @@ export default function Page() {
                           <p className="font-display text-sm font-bold text-ink-900">{ev.name}</p>
                           {ev.note && <p className="text-xs text-brand-600 font-semibold">{ev.note}</p>}
                         </div>
+                        <a href="https://www.freightbrixton.com/freightopening" target="_blank" rel="noopener noreferrer" className="flex-shrink-0 rounded-full bg-brand-600 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-brand-700">
+                          Get Tickets
+                        </a>
                       </div>
                     ))}
                   </div>
