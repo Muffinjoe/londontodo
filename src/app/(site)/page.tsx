@@ -123,17 +123,13 @@ export default async function HomePage() {
       )}
 
       {/* ── Newsletter CTA (full width) ── */}
-      <section className="bg-ink-900 py-12">
-        <div className="mx-auto max-w-2xl px-5 text-center">
-          <h2 className="font-display text-2xl font-extrabold text-white sm:text-3xl">
-            Never miss the best of London
-          </h2>
-          <p className="mt-2 text-sm text-ink-300 sm:text-base">
-            Get our editors&apos; picks delivered to your inbox every Thursday morning.
-          </p>
-          <div className="mt-6">
-            <NewsletterBox variant="inline" headline="" description="" />
-          </div>
+      <section className="py-12">
+        <div className="mx-auto max-w-2xl px-5">
+          <NewsletterBox
+            variant="inline"
+            headline="Never miss the best of London"
+            description="Get our editors' picks delivered to your inbox every Thursday morning."
+          />
         </div>
       </section>
     </>
