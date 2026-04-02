@@ -132,6 +132,9 @@ const GALLERY_IMAGES = [
   '/images/cs-diverse-4.jpg',
   '/images/cs-diverse-5.jpg',
   '/images/cs-diverse-6.jpg',
+  '/images/cs-diverse-11.jpg',
+  '/images/cs-diverse-13.jpg',
+  '/images/cs-diverse-17.jpg',
 ]
 
 export default function CitySplashPage() {

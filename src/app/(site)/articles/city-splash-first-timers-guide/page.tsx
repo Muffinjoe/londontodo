@@ -78,7 +78,7 @@ export default function Page() {
                       {i === 2 && (
                         <div className="not-prose my-10">
                           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                            {['/images/cs-diverse-8.jpg', '/images/cs-diverse-13.jpg', '/images/cs-diverse-14.jpg'].map((src, n) => (
+                            {['/images/cs-diverse-8.jpg', '/images/cs-diverse-13.jpg', '/images/cs-diverse-14.jpg', '/images/cs-diverse-1.jpg', '/images/cs-diverse-10.jpg', '/images/cs-diverse-3.jpg'].map((src, n) => (
                               <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
                                 <Image src={src} alt={`City Splash photo ${n + 1}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
                               </div>
@@ -100,7 +100,7 @@ export default function Page() {
                         <div className="not-prose my-10">
                           <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">The City Splash Experience</h3>
                           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                            {['/images/cs-diverse-15.jpg', '/images/cs-diverse-16.jpg', '/images/cs-diverse-17.jpg'].map((src, n) => (
+                            {['/images/cs-diverse-15.jpg', '/images/cs-diverse-16.jpg', '/images/cs-diverse-17.jpg', '/images/cs-diverse-6.jpg', '/images/cs-diverse-18.jpg', '/images/cs-diverse-11.jpg'].map((src, n) => (
                               <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
                                 <Image src={src} alt={`City Splash photo ${n + 4}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
                               </div>
