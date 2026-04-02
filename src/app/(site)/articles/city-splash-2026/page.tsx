@@ -84,8 +84,8 @@ function JsonLd() {
     '@context': 'https://schema.org',
     '@type': 'MusicEvent',
     name: 'City Splash Festival 2026',
-    startDate: '2026-07-01T12:00:00+01:00',
-    endDate: '2026-07-01T23:00:00+01:00',
+    startDate: '2026-05-25T12:00:00+01:00',
+    endDate: '2026-05-25T23:00:00+01:00',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     eventStatus: 'https://schema.org/EventScheduled',
     location: { '@type': 'Place', name: 'Brockwell Park', address: { '@type': 'PostalAddress', addressLocality: 'London', addressRegion: 'SE24', addressCountry: 'GB' } },
@@ -125,7 +125,14 @@ const FAQ_ITEMS = [
   { q: 'Are tickets still available?', a: 'Yes, tickets are on sale now but City Splash sells out. Book early to avoid disappointment.' },
 ]
 
-const GALLERY_COUNT = 6
+const GALLERY_IMAGES = [
+  '/images/cs-diverse-1.jpg',
+  '/images/cs-diverse-2.jpg',
+  '/images/cs-diverse-3.jpg',
+  '/images/cs-diverse-4.jpg',
+  '/images/cs-diverse-5.jpg',
+  '/images/cs-diverse-6.jpg',
+]
 
 export default function CitySplashPage() {
   return (
@@ -156,7 +163,7 @@ export default function CitySplashPage() {
                 30,000 people. 60+ artists. 6 stages. 60+ food vendors. Brockwell Park comes alive with reggae, dancehall, afrobeats, amapiano and pure carnival energy.
               </p>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-white/60">
-                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" /> 2026</span>
+                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" /> 25th May 2026</span>
                 <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4" /> Brockwell Park, London</span>
                 <span className="flex items-center gap-1.5"><Users className="h-4 w-4" /> 30,000 attendees</span>
               </div>
@@ -192,15 +199,7 @@ export default function CitySplashPage() {
                 <h2>Why City Splash Is a London Institution in the Making</h2>
 
                 <p>
-                  Since launching in 2021, City Splash has grown at a pace that would make most festival organisers weep with envy. What started as a bold idea to bring Caribbean and African music culture to a major London park has become one of the capital&apos;s most anticipated annual events, drawing around 30,000 people to Brockwell Park each year.
-                </p>
-
-                <p>
-                  The formula is deceptively simple: bring together the best artists from across reggae, dancehall, afrobeats, amapiano, jungle and garage, set them up across six stages, surround them with incredible food and drink, and let the community do the rest. But the execution is anything but simple. City Splash delivers a level of energy, authenticity and cultural richness that you will not find anywhere else in the London festival calendar.
-                </p>
-
-                <p>
-                  If you have ever been to Notting Hill Carnival and wished it lasted longer, or wondered what it would feel like to bottle that energy into a single day in a beautiful South London park, City Splash is your answer.
+                  Since launching in 2021, City Splash has become one of the capital&apos;s most anticipated annual events, drawing around 30,000 people to Brockwell Park each year. It delivers a level of energy, authenticity and cultural richness that you will not find anywhere else in the London festival calendar.
                 </p>
 
                 <Testimonial
@@ -219,11 +218,7 @@ export default function CitySplashPage() {
                 <h2>60+ Artists, 6 Stages, One Unforgettable Day</h2>
 
                 <p>
-                  City Splash is not a festival that plays it safe with one or two headliners surrounded by filler. This is a festival that goes deep. Across six stages, you will find everything from legendary dancehall artists and reggae royalty to the hottest names in afrobeats, amapiano, jungle, garage and soca. The programming is generous, the variety is extraordinary, and the quality is consistently high.
-                </p>
-
-                <p>
-                  What makes the lineup special is the range. You might catch a living legend of roots reggae on one stage, walk fifty metres and find yourself in the middle of a high-energy amapiano set, then round a corner and discover a sound system session that transports you straight to a Jamaican dance. The festival honours its Caribbean and African roots while embracing the full spectrum of Black British music culture, and that breadth is what keeps 30,000 people coming back.
+                  Across six stages, you will find everything from legendary dancehall artists and reggae royalty to the hottest names in afrobeats, amapiano, jungle, garage and soca. You might catch a living legend of roots reggae on one stage, walk fifty metres and find yourself in the middle of a high-energy amapiano set, then round a corner and discover a sound system session that transports you straight to a Jamaican dance. The festival honours its Caribbean and African roots while embracing the full spectrum of Black British music culture.
                 </p>
 
                 <Testimonial
@@ -243,11 +238,11 @@ export default function CitySplashPage() {
                     The City Splash Experience
                   </h3>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
-                    {Array.from({ length: GALLERY_COUNT }, (_, i) => i + 1).map((n) => (
-                      <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
+                    {GALLERY_IMAGES.map((src, i) => (
+                      <div key={i} className="relative aspect-square overflow-hidden rounded-lg">
                         <Image
-                          src={`/images/cs-gallery-${n}.jpg`}
-                          alt={`City Splash festival photo ${n}`}
+                          src={src}
+                          alt={`City Splash festival photo ${i + 1}`}
                           fill
                           className="object-cover transition-transform duration-300 hover:scale-105"
                           sizes="(max-width: 640px) 50vw, 33vw"
@@ -351,7 +346,7 @@ export default function CitySplashPage() {
                 <div className="rounded-lg border border-ink-100 bg-white p-5">
                   <h3 className="mb-3 font-display text-sm font-extrabold uppercase tracking-wide text-ink-900">Quick Facts</h3>
                   <ul className="space-y-3 text-sm text-ink-600">
-                    <li className="flex items-start gap-2"><Calendar className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /><span>2026 (date TBC)</span></li>
+                    <li className="flex items-start gap-2"><Calendar className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /><span>25th May 2026</span></li>
                     <li className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /><span>Brockwell Park, London SE24</span></li>
                     <li className="flex items-start gap-2"><Music className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /><span>Reggae, Dancehall, Afrobeats, Amapiano</span></li>
                     <li className="flex items-start gap-2"><Users className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" /><span>30,000 attendees</span></li>

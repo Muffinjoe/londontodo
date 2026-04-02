@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Clock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const TARGET_DATE = new Date('2026-05-24T12:00:00+01:00')
+const TARGET_DATE = new Date('2026-05-25T12:00:00+01:00')
 
 interface TimeLeft {
   days: number
@@ -45,7 +45,7 @@ export default function CountdownTimer() {
       <div className="mb-4 flex items-center gap-2">
         <Clock className="h-5 w-5 text-brand-600" />
         <h3 className="font-display text-sm font-extrabold uppercase tracking-wide text-ink-900">
-          Countdown to Cross The Tracks
+          Countdown to City Splash
         </h3>
       </div>
       <div className="grid grid-cols-4 gap-2">
