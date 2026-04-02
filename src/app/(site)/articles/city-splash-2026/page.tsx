@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Reggae, dancehall, afrobeats and amapiano in Brockwell Park. 60+ artists, 6 stages, 60+ food vendors.',
     url: ARTICLE_URL,
     type: 'article',
-    images: [{ url: 'https://londontodo.com/images/cs-flyer.jpg', width: 1080, height: 1350, alt: 'City Splash Festival 2026' }],
+    images: [{ url: 'https://londontodo.com/images/cs-flyer.webp', width: 1080, height: 1350, alt: 'City Splash Festival 2026' }],
   },
 }
 
@@ -72,7 +72,7 @@ function JsonLd() {
     '@type': 'Article',
     headline: ARTICLE_TITLE,
     description: 'City Splash Festival returns to Brockwell Park in 2026 with 60+ artists, 6 stages, and London\'s biggest celebration of Caribbean and African music.',
-    image: '/images/cs-hero.jpg',
+    image: '/images/cs-hero.webp',
     datePublished: '2026-03-27T10:00:00+00:00',
     dateModified: '2026-03-27T10:00:00+00:00',
     author: { '@type': 'Organization', name: 'LondonTodo', url: 'https://londontodo.com' },
@@ -90,7 +90,7 @@ function JsonLd() {
     eventStatus: 'https://schema.org/EventScheduled',
     location: { '@type': 'Place', name: 'Brockwell Park', address: { '@type': 'PostalAddress', addressLocality: 'London', addressRegion: 'SE24', addressCountry: 'GB' } },
     description: 'London\'s leading celebration of Caribbean and African music. 60+ artists, 6 stages, 60+ food vendors.',
-    image: '/images/cs-hero.jpg',
+    image: '/images/cs-hero.webp',
     offers: { '@type': 'Offer', url: TICKET_URL, availability: 'https://schema.org/InStock' },
     organizer: { '@type': 'Organization', name: 'City Splash' },
   }
@@ -126,15 +126,15 @@ const FAQ_ITEMS = [
 ]
 
 const GALLERY_IMAGES = [
-  '/images/cs-diverse-1.jpg',
-  '/images/cs-diverse-2.jpg',
-  '/images/cs-diverse-3.jpg',
-  '/images/cs-diverse-4.jpg',
-  '/images/cs-diverse-5.jpg',
-  '/images/cs-diverse-6.jpg',
-  '/images/cs-diverse-11.jpg',
-  '/images/cs-diverse-13.jpg',
-  '/images/cs-diverse-17.jpg',
+  '/images/cs-diverse-1.webp',
+  '/images/cs-diverse-2.webp',
+  '/images/cs-diverse-3.webp',
+  '/images/cs-diverse-4.webp',
+  '/images/cs-diverse-5.webp',
+  '/images/cs-diverse-6.webp',
+  '/images/cs-diverse-11.webp',
+  '/images/cs-diverse-13.webp',
+  '/images/cs-diverse-17.webp',
 ]
 
 export default function CitySplashPage() {
@@ -146,7 +146,7 @@ export default function CitySplashPage() {
         {/* Hero */}
         <header className="relative overflow-hidden bg-ink-900">
           <Image
-            src="/images/cs-hero.jpg"
+            src="/images/cs-hero.webp"
             alt="City Splash Festival live performance at Brockwell Park"
             fill
             priority
@@ -334,7 +334,7 @@ export default function CitySplashPage() {
                 {/* Flyer */}
                 <a href="https://www.city-splash.com/" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg transition-opacity hover:opacity-90">
                   <Image
-                    src="/images/cs-flyer.jpg"
+                    src="/images/cs-flyer.webp"
                     alt="City Splash 2026 festival flyer"
                     width={540}
                     height={675}

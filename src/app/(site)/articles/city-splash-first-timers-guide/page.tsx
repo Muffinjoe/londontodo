@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: '60+ Caribbean food vendors, craft rum bars, sound system culture. Why City Splash is London\'s best festival for Caribbean food and culture.',
     url: ARTICLE_URL,
     type: 'article',
-    images: [{ url: 'https://londontodo.com/images/cs-flyer.jpg', width: 1080, height: 1350, alt: 'City Splash 2026' }],
+    images: [{ url: 'https://londontodo.com/images/cs-flyer.webp', width: 1080, height: 1350, alt: 'City Splash 2026' }],
   },
 }
 
@@ -38,7 +38,7 @@ export default function Page() {
     <>
       <article>
         <header className="relative overflow-hidden bg-ink-900">
-          <Image src="/images/cs-diverse-7.jpg" alt="City Splash Festival crowd in Brockwell Park" fill priority className="object-cover" sizes="100vw" />
+          <Image src="/images/cs-diverse-7.webp" alt="City Splash Festival crowd in Brockwell Park" fill priority className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-ink-900/95" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
@@ -78,7 +78,7 @@ export default function Page() {
                       {i === 2 && (
                         <div className="not-prose my-10">
                           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                            {['/images/cs-diverse-8.jpg', '/images/cs-diverse-13.jpg', '/images/cs-diverse-14.jpg', '/images/cs-diverse-1.jpg', '/images/cs-diverse-10.jpg', '/images/cs-diverse-3.jpg'].map((src, n) => (
+                            {['/images/cs-diverse-8.webp', '/images/cs-diverse-13.webp', '/images/cs-diverse-14.webp', '/images/cs-diverse-1.webp', '/images/cs-diverse-10.webp', '/images/cs-diverse-3.webp'].map((src, n) => (
                               <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
                                 <Image src={src} alt={`City Splash photo ${n + 1}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
                               </div>
@@ -100,7 +100,7 @@ export default function Page() {
                         <div className="not-prose my-10">
                           <h3 className="mb-4 font-display text-xl font-extrabold text-ink-900">The City Splash Experience</h3>
                           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                            {['/images/cs-diverse-15.jpg', '/images/cs-diverse-16.jpg', '/images/cs-diverse-17.jpg', '/images/cs-diverse-6.jpg', '/images/cs-diverse-18.jpg', '/images/cs-diverse-11.jpg'].map((src, n) => (
+                            {['/images/cs-diverse-15.webp', '/images/cs-diverse-16.webp', '/images/cs-diverse-17.webp', '/images/cs-diverse-6.webp', '/images/cs-diverse-18.webp', '/images/cs-diverse-11.webp'].map((src, n) => (
                               <div key={n} className="relative aspect-square overflow-hidden rounded-lg">
                                 <Image src={src} alt={`City Splash photo ${n + 4}`} fill className="object-cover transition-transform duration-300 hover:scale-105" sizes="33vw" />
                               </div>
@@ -132,7 +132,7 @@ export default function Page() {
             <aside>
               <div className="space-y-6 lg:sticky lg:top-24">
                 <a href="https://www.city-splash.com/" target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg transition-opacity hover:opacity-90">
-                  <Image src="/images/cs-flyer.jpg" alt="City Splash 2026 flyer" width={540} height={675} className="h-auto w-full rounded-lg" />
+                  <Image src="/images/cs-flyer.webp" alt="City Splash 2026 flyer" width={540} height={675} className="h-auto w-full rounded-lg" />
                 </a>
                 <CountdownTimer />
                 <div className="rounded-lg border border-ink-100 bg-white p-5">
